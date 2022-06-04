@@ -1,4 +1,4 @@
 const styles = useStyles({
   color: "red",
-  backgroundColor: "red" 
-})
+  backgroundColor: "red"
+});
