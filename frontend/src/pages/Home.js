@@ -10,12 +10,7 @@ const Home = () => {
 
   const ToggleSwitch = () => {
     return (
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px"
-        }}>
+      <div>
         <FormGroup>
           <FormControlLabel
             control={<Switch checked={theme.darkTheme} onChange={() => dispatch(toogleTheme())} />}
@@ -29,7 +24,7 @@ const Home = () => {
   return (
     <Paper
       sx={{
-        minHeight: "100vh",
+        height: "100%",
         borderRadius: "0",
         display: "flex",
         flexDirection: "column",

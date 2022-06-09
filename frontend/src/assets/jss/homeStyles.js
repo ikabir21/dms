@@ -1,4 +1,5 @@
-const styles = useStyles({
-  color: "red",
-  backgroundColor: "red"
+const homeStyles = (theme) => ({
+  // add home styles here
 });
+
+export default homeStyles;
