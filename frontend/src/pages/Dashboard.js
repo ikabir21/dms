@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { toogleTheme } from "../redux/slices/theme";
 
-const Home = () => {
+const Dashboard = () => {
   const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
@@ -32,9 +32,9 @@ const Home = () => {
         justifyContent: "center"
       }}>
       <ToggleSwitch />
-      <Typography variant="h1">Demo Home Page</Typography>
+      <Typography variant="h1">Demo Dashboard Page</Typography>
     </Paper>
   );
 };
 
-export default Home;
+export default Dashboard;

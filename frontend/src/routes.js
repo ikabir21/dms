@@ -1,14 +1,27 @@
 import React, { lazy } from "react";
 import { useRoutes, Navigate, Outlet } from "react-router-dom";
 const DefaultLayout = lazy(() => import("./layouts/DefaultLayout"));
-const Home = lazy(() => import("./pages/Home"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 export const dashboardRoutes = [
-  { path: "", pathname: "", name: "Dashboard", element: <Home />, icon: <DashboardIcon /> },
-  { path: "home", pathname: "/home", name: "Dashboard", element: <Home />, icon: <DashboardIcon /> }
+  { path: "", pathname: "", name: "Dashboard", element: <Dashboard />, icon: <DashboardIcon /> },
+  {
+    path: "home",
+    pathname: "/home",
+    name: "Dashboard",
+    element: <Dashboard />,
+    icon: <DashboardIcon />
+  },
+  {
+    path: "profile",
+    pathname: "/profile",
+    name: "Profile",
+    element: <Dashboard />,
+    icon: <DashboardIcon />
+  }
   // { path: "/dashboard", name: "Dashboard", element: Dashboard, icon: DashboardIcon },
 ];
 
@@ -19,7 +32,6 @@ const Routes = () =>
       element: <DefaultLayout />,
       children: dashboardRoutes
     },
-
     {
       path: "/",
       element: <Outlet />,
