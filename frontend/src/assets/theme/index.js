@@ -1,6 +1,6 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
-const commonProperties = {
+const theme = createTheme({
   breakpoints: {
     keys: ["xs", "sm", "md", "lg", "xl"],
     values: { xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920 }
@@ -33,6 +33,22 @@ const commonProperties = {
           width: "100%"
         }
       }
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: "#222B45",
+          color: "#eee"
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+          textTransform: "inherit"
+        }
+      }
     }
   },
   direction: "ltr",
@@ -47,17 +63,18 @@ const commonProperties = {
   },
   typography: {
     htmlFontSize: 16,
-    fontFamily: ["Poppins", "Raleway", "Open Sans"].join(","),
+    fontFamily: ["Inter", "Poppins", "Open Sans"].join(","),
     fontSize: 14,
     fontWeightLight: 400,
     fontWeightRegular: 400,
     fontWeightMedium: 400,
     fontWeightBold: 400,
+    color: "#eee",
     h1: {
-      fontSize: "3rem"
+      fontSize: "3.75rem"
     },
     h2: {
-      fontSize: "2.5rem"
+      fontSize: "3.75rem"
     },
     h3: {
       fontSize: "2.25rem"
@@ -68,26 +85,38 @@ const commonProperties = {
     h5: {
       fontSize: "1.5rem"
     },
+    h6: {
+      fontSize: "1.2rem",
+      color: "#eee"
+    },
+    button: {
+      fontSize: ".99rem"
+    },
+    body1: {
+      fontSize: "1rem",
+      color: "#aeb0b4"
+    },
     shape: { borderRadius: 0 }
   },
   palette: {
+    mode: "dark",
     primary: {
-      light: "#7986cb",
-      main: "#3f51b5",
-      dark: "#303f9f",
-      contrastText: "#fff"
+      light: "#33CC70",
+      main: "#00AB55",
+      dark: "#009357",
+      contrastText: "rgba(0, 0, 0, 0.87)"
     },
     secondary: {
-      light: "#ff4081",
-      main: "#f50057",
-      dark: "#c51162",
-      contrastText: "#fff"
+      light: "#ffb74d",
+      main: "#f9b934",
+      dark: "#FF9800",
+      contrastText: "rgba(0, 0, 0, 0.87)"
     },
     error: {
       light: "#e57373",
       main: "#f44336",
       dark: "#d32f2f",
-      contrastText: "#fff"
+      contrastText: "rgba(0, 0, 0, 0.87)"
     },
     warning: {
       light: "#ffb74d",
@@ -99,7 +128,7 @@ const commonProperties = {
       light: "#64b5f6",
       main: "#2196f3",
       dark: "#1976d2",
-      contrastText: "#fff"
+      contrastText: "#rgba(0, 0, 0, 0.87)"
     },
     success: {
       light: "#81c784",
@@ -125,67 +154,18 @@ const commonProperties = {
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    text: {
+      primary: "#eee"
+    },
+    background: {
+      paper: "#222B45",
+      default: "#1A2138"
+    },
     action: {
       disabledOpacity: 0.38,
       focusOpacity: 0.12
     }
   }
-};
+});
 
-const lightTheme = {
-  type: "light",
-  text: {
-    primary: "rgba(0, 0, 0, 0.87)",
-    secondary: "rgba(0, 0, 0, 0.54)",
-    disabled: "rgba(0, 0, 0, 0.38)",
-    hint: "rgba(0, 0, 0, 0.38)"
-  },
-  divider: "rgba(0, 0, 0, 0.12)",
-  background: { paper: "#F9FAFB", default: "#F9FAFB" },
-  action: {
-    active: "rgba(0, 0, 0, 0.54)",
-    hover: "rgba(0, 0, 0, 0.04)",
-    hoverOpacity: 0.04,
-    selected: "rgba(0, 0, 0, 0.08)",
-    selectedOpacity: 0.08,
-    disabled: "rgba(0, 0, 0, 0.26)",
-    disabledBackground: "rgba(0, 0, 0, 0.12)",
-    focus: "rgba(0, 0, 0, 0.12)",
-    activatedOpacity: 0.12
-  }
-};
-const darkTheme = {
-  type: "dark",
-  text: {
-    primary: "#fff",
-    secondary: "rgba(255, 255, 255, 0.7)",
-    disabled: "rgba(255, 255, 255, 0.5)",
-    hint: "rgba(255, 255, 255, 0.5)",
-    icon: "rgba(255, 255, 255, 0.5)"
-  },
-  divider: "rgba(255, 255, 255, 0.12)",
-  background: { paper: "#303030", default: "#303030" },
-  action: {
-    active: "#fff",
-    hover: "rgba(255, 255, 255, 0.08)",
-    hoverOpacity: 0.08,
-    selected: "rgba(255, 255, 255, 0.16)",
-    selectedOpacity: 0.16,
-    disabled: "rgba(255, 255, 255, 0.3)",
-    disabledBackground: "rgba(255, 255, 255, 0.12)",
-    focus: "rgba(255, 255, 255, 0.12)",
-    activatedOpacity: 0.24
-  }
-};
-
-const createCustomTheme = (isDark) => {
-  const theme = createTheme({
-    ...commonProperties,
-    palette: isDark
-      ? { ...darkTheme, ...commonProperties.palette }
-      : { ...lightTheme, ...commonProperties.palette }
-  });
-  return responsiveFontSizes(theme);
-};
-
-export default createCustomTheme;
+export default responsiveFontSizes(theme);
