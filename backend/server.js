@@ -10,7 +10,7 @@ const app = express();
 
 const { DB_URL, PORT = 4000 } = process.env;
 
-connectDB(DB_URL);
+await connectDB(DB_URL);
 configureExpress(app);
 
 // Run the server
