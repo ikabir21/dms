@@ -8,13 +8,11 @@ import { CircularProgress, CssBaseline } from "@mui/material";
 
 // Project Imports
 import Routes from "./routes";
-import createCustomTheme from "./assets/theme";
+import theme from "./assets/theme";
 
 const App = () => {
-  const theme = useSelector((state) => state.theme);
-
   return (
-    <ThemeProvider theme={createCustomTheme(theme.darkTheme)}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Suspense fallback={<CircularProgress color="primary" />}>
