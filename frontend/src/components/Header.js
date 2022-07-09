@@ -19,9 +19,6 @@ const Header = () => {
       <AppBar color="background" elevation={0} position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <Stack direction="row" alignItems={"center"} justifyContent="space-between" width={216}>
-            <Typography component={Link} to="/" variant="text">
-              DMS
-            </Typography>
             <IconButton
               edge="start"
               aria-label="open drawer"
@@ -29,6 +26,9 @@ const Header = () => {
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
+            <Typography component={Link} to="/" variant="h5">
+              SDocs
+            </Typography>
           </Stack>
           <div>
             <Button variant="outlined" component={Link} to="/auth" className={classes.login}>
