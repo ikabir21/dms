@@ -1,3 +1,5 @@
+import express from "express";
+import { register } from "./controllers/userControllers.js";
 
 import express from "express";
 import { isAuth } from "./middlewares/authMiddlewares.js";
@@ -10,6 +12,9 @@ const router = express.Router();
 
 // welcome route
 router.get("/profile", profile);
+
+// users routes
+router.post("/register", register)
 
 export default router;
 

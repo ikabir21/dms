@@ -24,14 +24,13 @@ const userSchema = mongoose.Schema(
     joiningDate: String,
     documentReq :[
       {
-        file_id: {type: String, default: uuidv4()},
+        file_id: { type: String, default: uuidv4() },
         file_name: String,
         status: String,
-        ctreatedAt: {type: Date, default: Date.now}
+        ctreatedAt: { type: Date, default: Date.now }
       }
     ],
     bankDetails: {
-      type: String,
       accountNo: String,
       ifscCode: String,
       branchName: String,
