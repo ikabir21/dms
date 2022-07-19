@@ -19,7 +19,10 @@ const handleError = (err, _, res, next) => {
       message: error.message || "something went wrong",
     });
   }
-  return next(err);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "something went wrong",
+  });
 };
 
 export default handleError;
