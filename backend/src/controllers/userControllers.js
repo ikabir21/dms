@@ -1,11 +1,11 @@
-import { SIGNIN, SIGNUP } from "../config/constants.js";
-import validate from "../validators/validate.js";
+// import { SIGNIN, SIGNUP } from "../config/constants.js";
+// import validate from "../validators/validate.js";
 import User from "../models/userModel.js";
 import ErrorMessage from "../utils/errorMessage.js";
 import { generateToken } from "../utils/jwt.js";
 
-const getScholardId = () => {
-  const sc = `${new Date().getFullYear.substring(2)}1`
+const getScholardId = (code) => {
+  const sc = `${Math.floor((new Date()).getFullYear() / 100)}1`
   const branch = {
     EI: `${sc}5`,
     CSE: `${sc}2`,
@@ -15,50 +15,65 @@ const getScholardId = () => {
     ECE: `${sc}4`
 
   }
-  return branch;
+  return branch[code];
 }
 const getEmail = (name, branch) => {
   return `${name.replace(" ", "_")}_ug@${branch}.nits.ac.in`.toLowerCase();
 }
 
 export const register = async (req, res, next) => {
-  const { error } = validate(req.body, SIGNUP);
-  if (error) return next(new ErrorMessage(error.details[0].message, 400));
+  // const { error } = validate(req.body, SIGNUP);
+  // if (error) return next(new ErrorMessage(error.details[0].message, 400));
 
-  const { name, personalEmail, password, branchName, mobile, bankDetails, branch } = req.body;
+  const { name, personalEmail, password, mobile, bankDetails={}, branch={} } = req.body;
   const joiningYear = new Date().getFullYear()
   // create scholar id
   User.findOne({ personalEmail })
     .then((user) => {
       if (user) return next(new ErrorMessage("Already Registered", 401));
-      let scholarId;
-      User.find({ joiningDate: new Date().getFullYear(), "branch.code": branch.code }).then((users) => {
-        scholarId = getScholardId().branch.code + users.length;
-      }).catch((err) => next(err))
+      User.find({ joiningYear: new Date().getFullYear(), "branch.code": branch.code }).then((users) => {
+        const scholarId = getScholardId(branch.code) + ("00" + (users.length + 1)).slice(-3);
+        // console.log(scholarId);
+        const instituteEmail = getEmail(name, branch.code);
+  
+        // console.log(student);
+  
+        // create inst email
+        const student = new User({ 
+          name, 
+          personalEmail, 
+          instituteEmail, 
+          password, 
+          joiningYear, mobile, 
+          bankDetails: req.body.bankDetails, 
+          branch, 
+          scholarId
+         })
+  
+        //  console.log(student, getScholardId()[branch.code]);
+  
+        student.save()
+          .then((user) => {
+            if (user)
+              return res.status(200).json({
+                success: true,
+                message: "Successfully registered!",
+                _id: user._id,
+                email: user.email,
+                name: user.name,
+                token: generateToken({ _id: user._id, email }),
+              });
+          })
+          .catch((err) => next(err));
+      })
 
-      const instituteEmail = getEmail(name, branch.code);
-
-      // create inst email
-      User.create({ name, personalEmail, instituteEmail, password, joiningYear, branchName, mobile, bankDetails, branch, scholarId })
-        .then((user) => {
-          if (user)
-            return res.status(200).json({
-              success: true,
-              message: "Successfully registered!",
-              _id: user._id,
-              email: user.email,
-              name: user.name,
-              token: generateToken({ _id: user._id, email }),
-            });
-        })
-        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };
 
 export const login = (req, res, next) => {
-  const { error } = validate(req.body, SIGNIN);
-  if (error) return next(new ErrorMessage(error.details[0].message, 400));
+  // const { error } = validate(req.body, SIGNIN);
+  // if (error) return next(new ErrorMessage(error.details[0].message, 400));
   const { email, password } = req.body;
 
   User.findOne({ email })
