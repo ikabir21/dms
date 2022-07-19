@@ -3,6 +3,7 @@
 import User from "../models/userModel.js";
 import ErrorMessage from "../utils/errorMessage.js";
 import { generateToken } from "../utils/jwt.js";
+import {customAlphabet} from "nanoid";
 
 const getScholardId = (code) => {
   const sc = `${Math.floor((new Date()).getFullYear() / 100)}1`
@@ -18,7 +19,8 @@ const getScholardId = (code) => {
   return branch[code];
 }
 const getEmail = (name, branch) => {
-  return `${name.replace(" ", "_")}_ug@${branch}.nits.ac.in`.toLowerCase();
+  const nanoid = customAlphabet('1234567890', 10)
+  return `${name.replace(" ", "_")}_${nanoid(3)}_ug@${branch}.nits.ac.in`.toLowerCase();
 }
 
 export const register = async (req, res, next) => {
@@ -30,38 +32,32 @@ export const register = async (req, res, next) => {
   // create scholar id
   User.findOne({ personalEmail })
     .then((user) => {
+      console.log(personalEmail, user)
       if (user) return next(new ErrorMessage("Already Registered", 401));
       User.find({ joiningYear: new Date().getFullYear(), "branch.code": branch.code }).then((users) => {
         const scholarId = getScholardId(branch.code) + ("00" + (users.length + 1)).slice(-3);
         // console.log(scholarId);
         const instituteEmail = getEmail(name, branch.code);
   
-        // console.log(student);
-  
-        // create inst email
-        const student = new User({ 
+        User.create({ 
           name, 
           personalEmail, 
           instituteEmail, 
           password, 
           joiningYear, mobile, 
-          bankDetails: req.body.bankDetails, 
+          bankDetails, 
           branch, 
           scholarId
          })
-  
-        //  console.log(student, getScholardId()[branch.code]);
-  
-        student.save()
           .then((user) => {
             if (user)
               return res.status(200).json({
                 success: true,
                 message: "Successfully registered!",
                 _id: user._id,
-                email: user.email,
+                personalEmail: user.personalEmail,
                 name: user.name,
-                token: generateToken({ _id: user._id, email }),
+                token: generateToken({ _id: user._id, email: personalEmail }),
               });
           })
           .catch((err) => next(err));
@@ -74,9 +70,9 @@ export const register = async (req, res, next) => {
 export const login = (req, res, next) => {
   // const { error } = validate(req.body, SIGNIN);
   // if (error) return next(new ErrorMessage(error.details[0].message, 400));
-  const { email, password } = req.body;
+  const { personalEmail, password } = req.body;
 
-  User.findOne({ email })
+  User.findOne({ personalEmail })
     .then((user) => {
       console.log(user);
       user.comparePassword(password, (err, isMatched) => {
@@ -87,9 +83,9 @@ export const login = (req, res, next) => {
           success: true,
           message: "Successfully logged in",
           _id: user._id,
-          email: user.email,
+          personalEmail: user.personalEmail,
           name: user.name,
-          token: generateToken({ _id: user._id, email }),
+          token: generateToken({ _id: user._id, email: personalEmail }),
         });
       });
     })

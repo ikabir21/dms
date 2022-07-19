@@ -1,5 +1,5 @@
 import express from "express";
-import { register } from "./controllers/userControllers.js";
+import { login, register } from "./controllers/userControllers.js";
 
 // project imports
 
@@ -12,5 +12,6 @@ router.get("/auth", (req, res) => res.send("<h1>Hello from server</h1>"));
 
 // users routes
 router.post("/register", register)
+router.post("/login", login)
 
 export default router;
