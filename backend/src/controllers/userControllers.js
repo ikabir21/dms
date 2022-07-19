@@ -25,7 +25,8 @@ export const register = async (req, res, next) => {
   const { error } = validate(req.body, SIGNUP);
   if (error) return next(new ErrorMessage(error.details[0].message, 400));
 
-  const { name, personalEmail, password, joiningYear, branchName, mobile, bankDetails, branch } = req.body;
+  const { name, personalEmail, password, branchName, mobile, bankDetails, branch } = req.body;
+  const joiningYear = new Date().getFullYear()
   // create scholar id
   User.findOne({ personalEmail })
     .then((user) => {
@@ -79,3 +80,4 @@ export const login = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
+
