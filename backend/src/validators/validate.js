@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import Joi from "@hapi/joi";
-import { SIGNIN, SIGNUP } from "../config/constants.js";
+// import { SIGNIN, SIGNUP } from "../config/constants.js";
 
 const validateUser = (user, authType) => {
   switch (authType) {

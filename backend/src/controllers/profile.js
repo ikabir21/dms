@@ -8,7 +8,7 @@ export const profile=async(req,res,next)=>{
     // console.log(id);
      
 
-    User.findById({id}).then((user)=>{
+    User.findById(id).then((user)=>{
         if(user){
             return res.status(200).json({
                 success: true,
@@ -28,11 +28,11 @@ export const profile=async(req,res,next)=>{
 
 };
 export const payments=async(req,res,next)=>{
-    const  id=req.user._id;
+    const  id=req.body.id;
     // console.log(id);
      
 
-    User.findById({id}).then((user)=>{
+    User.findById(id).then((user)=>{
         if(user){
             return res.status(200).json({
                 success: true,
