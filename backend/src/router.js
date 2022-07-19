@@ -1,5 +1,5 @@
 import express from "express";
-import { register } from "./controllers/userControllers.js";
+import { login, register } from "./controllers/userControllers.js";
 
 
 import { isAuth } from "./middlewares/authMiddlewares.js";
@@ -16,6 +16,7 @@ router.get("/payments", payments);
 
 // users routes
 router.post("/register", register)
+router.post("/login", login)
 
 export default router;
 
