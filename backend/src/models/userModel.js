@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from 'uuid';
+import gravatar from "gravatar";
 
 const SALT_WORK_FACTOR = 12;
 
@@ -17,6 +18,7 @@ const userSchema = mongoose.Schema(
     mobile: { type: String,  unique: true},
     isEmailVerified: { type: Boolean, default: false },
     password: { type: String, default: "" },
+    profileUrl: {type: String, default: ""},
     branch: {
       name: String,
       code: String
@@ -58,6 +60,7 @@ userSchema.pre("save", function (next) {
       bcrypt.hash(this.password, salt, (err, hash) => {
         if (err) return next(err);
 
+        this.profileUrl = gravatar.url(this.personalEmail, {s: '100', r: 'x', d: 'retro'}, false);
         this.password = hash;
         next();
       });

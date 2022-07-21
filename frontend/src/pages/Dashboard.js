@@ -45,7 +45,7 @@ const Dashboard = () => {
     actions.getProfile();
   }, [])
 
-  // console.log(state.profile?);
+  console.log(state.profile);
 
   return (
     <Paper
@@ -61,7 +61,7 @@ const Dashboard = () => {
               <Box>
                 <Avatar
                   alt="Profile Photo"
-                  src="https://scontent-tir2-2.xx.fbcdn.net/v/t1.6435-1/125524520_1314075878923623_7842039887406294838_n.jpg?stp=dst-jpg_p320x320&_nc_cat=109&ccb=1-7&_nc_sid=7206a8&_nc_ohc=jHneyks_F0EAX-ruSzf&_nc_ht=scontent-tir2-2.xx&oh=00_AT-RaA3OnxnOYp46cmS5lCh8obiXbD5bARSzXy-4Fdfa_Q&oe=62EF1E89"
+                  src={state.profile?.profileUrl}
                   sx={{ width: 100, height: 100 }}
                 />
               </Box>
