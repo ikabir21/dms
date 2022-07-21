@@ -11,7 +11,7 @@ import headerStyles from "../assets/jss/headerStyles";
 
 const useStyles = makeStyles(headerStyles);
 
-const Header = () => {
+const Header = ({toggleDrawer}) => {
   const classes = useStyles();
 
   return (
@@ -22,7 +22,7 @@ const Header = () => {
             <IconButton
               edge="start"
               aria-label="open drawer"
-              // onClick={handleDrawerOpen}
+              onClick={toggleDrawer}
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>

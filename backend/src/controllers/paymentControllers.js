@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
+import dotenv from "dotenv";
 import PaytmChecksum from "../utils/PaytmChecksum.js";
+
+dotenv.config();
 
 export const makePayments = async (req, res, next) => {
   console.log(req.body);
