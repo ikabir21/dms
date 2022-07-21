@@ -4,14 +4,13 @@ import validate from "../validators/validate.js";
 
 
 export const profile=async(req,res,next)=>{
-    const  id=req.body.id;
+    const id = req.user._id;
     // console.log(id);
      
-
     User.findById(id).then((user)=>{
         if(user){
             return res.status(200).json({
-                success: true,
+            success: true,
               name:user.name,
               personalEmail:user.personalEmail,
               instituteEmail:user.instituteEmail,
@@ -28,10 +27,9 @@ export const profile=async(req,res,next)=>{
 
 };
 export const payments=async(req,res,next)=>{
-    const  id=req.body.id;
+    const id = req.user.id;
     // console.log(id);
      
-
     User.findById(id).then((user)=>{
         if(user){
             return res.status(200).json({
@@ -43,6 +41,4 @@ export const payments=async(req,res,next)=>{
 
 })
 .catch((err) => next(err));
-
-
 };

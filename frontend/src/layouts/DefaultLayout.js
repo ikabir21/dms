@@ -4,7 +4,7 @@ import { Sidebar, Header } from "../components";
 import { Outlet } from "react-router-dom";
 
 const DefaultLayout = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <>
@@ -16,7 +16,7 @@ const DefaultLayout = () => {
           marginTop: "64px",
           display: "flex"
         }}>
-        <Sidebar />
+        <Sidebar open={open} setOpen={setOpen} />
         <Box sx={{ flexGrow: 1, p: 0 }}>
           {/* <Home /> */}
           {/* <Footer /> */}

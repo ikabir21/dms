@@ -1,14 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, {useEffect, useContext} from "react";
 import {
   Paper,
-  FormGroup,
-  FormControlLabel,
-  Switch,
   Typography,
   CardContent,
-  CardActions,
   Button,
   Box,
   Card,
@@ -16,22 +12,12 @@ import {
   useTheme,
   Avatar
 } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import CBarChart from "../components/BarChart";
-import Divider from "@mui/material/Divider";
-import PersonIcon from "@mui/icons-material/Person";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import CakeIcon from "@mui/icons-material/Cake";
-import PlaceIcon from "@mui/icons-material/Place";
-import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
-import EmailIcon from "@mui/icons-material/Email";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import AccountCard from "./AccountCard";
-import PaymentTable from "./PaymentTable";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { AppContext } from "../context";
 
 const ContentCard = ({ children, ...rest }) => {
   const theme = useTheme();
@@ -40,11 +26,12 @@ const ContentCard = ({ children, ...rest }) => {
     <Card
       {...rest}
       variant="outlined"
-      style={{
+      sx={{
         borderRadius: "12px",
         boxShadow: theme.shadows[8],
         border: "none",
-        padding: "1rem"
+        padding: "1rem",
+        width: "auto"
       }}>
       <CardContent style={{ paddingBottom: "1rem" }}>{children}</CardContent>
     </Card>
@@ -52,7 +39,13 @@ const ContentCard = ({ children, ...rest }) => {
 };
 
 const Dashboard = () => {
-  const theme = useTheme();
+  const { state, actions } = useContext(AppContext);
+
+  useEffect(() => {
+    actions.getProfile();
+  }, [])
+
+  // console.log(state.profile?);
 
   return (
     <Paper
@@ -74,11 +67,11 @@ const Dashboard = () => {
               </Box>
               <Box sx={{ pl: "1.5rem" }}>
                 <Typography variant="h4" component="div" style={{ marginBottom: "0.3rem" }}>
-                  Gaurab Das
+                  {state.profile?.name}
                 </Typography>
                 <Box style={{ display: "flex", alignItems: "baseline", marginBottom: "0.3rem" }}>
                   <Typography variant="subtitle1" component="span">
-                    Scholar ID: 1915043
+                    Scholar ID: {state.profile?.scholarId}
                   </Typography>
                 </Box>
                 <Box style={{ display: "flex", alignItems: "baseline" }}>
@@ -90,30 +83,30 @@ const Dashboard = () => {
             </Box>
           </ContentCard>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={5}>
           <ContentCard>
             <Box style={{ display: "flex", alignItems: "baseline", marginBottom: "0.3rem" }}>
               <Typography variant="subtitle1" component="span">
-                Personal Email ID: gaurab@gmail.com
+                Personal Email ID: {state.profile?.personalEmail}
               </Typography>
             </Box>
             <Box style={{ display: "flex", alignItems: "baseline", marginBottom: "0.3rem" }}>
               <Typography variant="subtitle1" component="span">
-                Institute Email ID: gaurab@ei.nits.ac.in
+                Institute Email ID: {state.profile?.instituteEmail}
               </Typography>
             </Box>
             <Box style={{ display: "flex", alignItems: "baseline" }}>
               <Typography variant="subtitle1" component="span">
-                Branch: EIE&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Batch: 2019-23
+                Branch: {state.profile?.branch.code}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Batch: 2019-23
               </Typography>
             </Box>
           </ContentCard>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <ContentCard>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Typography sx={{ mt: 0.9 }} align="center" variant="subtitle1">
-                Current CGPA: 9.3 <br />
+                CGPA: 9.3 <br />
                 (Out of 10)
               </Typography>
               <Box width="100px">

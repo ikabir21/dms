@@ -11,8 +11,8 @@ const { CLIENT_URL } = process.env;
 const router = express.Router();
 
 // welcome route
-router.get("/profile", profile);
-router.get("/payments", payments);
+router.get("/profile", isAuth, profile);
+router.get("/payments", isAuth, payments);
 
 // users routes
 router.post("/register", register)
