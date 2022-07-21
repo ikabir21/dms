@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip } from "recharts";
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Bar,
+  Tooltip
+} from "recharts";
 
 const CBarChart = () => {
   // var options = {
