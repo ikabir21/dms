@@ -12,7 +12,7 @@ import sidebarStyles from "../assets/jss/sidebarStyles";
 
 const useStyles = makeStyles(sidebarStyles);
 
-const Sidebar = () => {
+const Sidebar = ({open}) => {
   const classes = useStyles();
   const location = useLocation();
 

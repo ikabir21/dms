@@ -1,148 +1,152 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import React from "react";
 import {
-  Grid,
   Paper,
-  Avatar,
-  Typography,
-  TextField,
-  FormControl,
-  FormLabel,
-  RadioGroup,
+  FormGroup,
   FormControlLabel,
-  Radio
+  Switch,
+  Typography,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+  Card,
+  Grid,
+  useTheme,
+  Avatar
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
+import { useSelector, useDispatch } from "react-redux";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import CBarChart from "../components/BarChart";
+import Divider from "@mui/material/Divider";
+import PersonIcon from "@mui/icons-material/Person";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import MenuItem from "@mui/material/MenuItem";
-import { Box } from "@mui/system";
+import CakeIcon from "@mui/icons-material/Cake";
+import PlaceIcon from "@mui/icons-material/Place";
+import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
+import EmailIcon from "@mui/icons-material/Email";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import AccountCard from "./AccountCard";
+import PaymentTable from "./PaymentTable";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-const Payment = () => {
-  const paperStyle = { padding: "25px 20px", width: 500, margin: "20px auto" };
-  const headerStyle = { margin: 0, color: "#FFFFFF" };
-  const avatarStyle1 = { backgroundColor: "#1bbd7e" };
-  const avatarStyle2 = { backgroundColor: "#1bbd7e" };
-  const Stream = [
-    {
-      value: "Computer Science and Engineering",
-      label: "Computer Science and Engineering"
-    },
-    {
-      value: "Electronics and Communication Engineering",
-      label: "Electronics and Communication Engineering"
-    },
-    {
-      value: "Electronics and Instrumentation Engineering",
-      label: "Electronics and Instrumentation Engineering"
-    },
-    {
-      value: "Electrical Engineering",
-      label: "Electrical Engineering"
-    },
-    {
-      value: "Mechanical Engineering",
-      label: "Mechanical Engineering"
-    },
-    {
-      value: "Civil Engineering",
-      label: "Civil Engineering"
-    }
-  ];
-
-  const [Branch, setBranch] = React.useState("EUR");
-
-  const handleChange = (event) => {
-    setBranch(event.target.value);
-  };
+const ContentCard = ({ children, ...rest }) => {
+  const theme = useTheme();
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div>
-        <Grid>
-          <Paper elevation={20} style={paperStyle}>
-            <Grid align="center">
-              <Avatar style={avatarStyle1}>
-                <AccountCircleIcon />
-              </Avatar>
-              <h1 style={headerStyle}>Personal Details</h1>
-              <Typography variant="caption">
-                Please fill the form to complete the Registration process.{" "}
-              </Typography>
-            </Grid>
-            <form>
-              <TextField margin="dense" fullWidth label="Full Name"></TextField>
-              <TextField margin="dense" fullWidth label="Parents/Guardian Name"></TextField>
-              <TextField margin="dense" fullWidth label="Email Id"></TextField>
-              <TextField margin="dense" fullWidth label="All India Rank"></TextField>
+    <Card
+      {...rest}
+      variant="outlined"
+      style={{
+        borderRadius: "12px",
+        boxShadow: theme.shadows[8],
+        border: "none",
+        padding: "1rem"
+      }}>
+      <CardContent style={{ paddingBottom: "1rem" }}>{children}</CardContent>
+    </Card>
+  );
+};
 
-              <TextField
-                margin="dense"
-                fullWidth
-                select
-                label="Branch"
-                value={Branch}
-                onChange={handleChange}
-                helperText="Please select your Branch">
-                {Stream.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+const bankDetails = [
+  [
+    {
+      id: 1,
+      icon: <PersonIcon />,
+      title: "Account Holder Name",
+      data: "Gaurab Das"
+    },
+    {
+      id: 2,
+      icon: <AccountBalanceIcon />,
+      title: "Account Number",
+      data: "3976 7483 2939 5234"
+    },
+    {
+      id: 3,
+      icon: <AccountBalanceIcon />,
+      title: "IFSC Code",
+      data: "SBIN28490299"
+    },
+    {
+      id: 4,
+      icon: <AccountBalanceIcon />,
+      title: "CIF Number",
+      data: "7376 3363 8728 2984"
+    },
+    {
+      id: 5,
+      icon: <CakeIcon />,
+      title: "Date Of Birth",
+      data: "05/12/2000"
+    }
+  ],
+  [
+    {
+      id: 6,
+      icon: <AccountBalanceIcon />,
+      title: "Account Type",
+      data: "Savings"
+    },
+    {
+      id: 7,
+      icon: <PlaceIcon />,
+      title: "Branch",
+      data: "Silchar"
+    },
+    {
+      id: 8,
+      icon: <MobileFriendlyIcon />,
+      title: "Phone Number",
+      data: "7424872882"
+    },
+    {
+      id: 9,
+      icon: <EmailIcon />,
+      title: "Email ID",
+      data: "janedoe@gmail.com"
+    },
+    {
+      id: 10,
+      icon: <CurrencyRupeeIcon />,
+      title: "Account Balance",
+      data: "13,845"
+    }
+  ]
+];
 
-              <TextField margin="dense" fullWidth label="Mobile Number"></TextField>
-              <FormControl>
-                <FormLabel>Gender</FormLabel>
-                <RadioGroup>
-                  <div>
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio />}
-                      label="Male"></FormControlLabel>
-                    <FormControlLabel
-                      value="Female"
-                      control={<Radio />}
-                      label="Female"></FormControlLabel>
-                    <FormControlLabel
-                      value="Other"
-                      control={<Radio />}
-                      label="Other"></FormControlLabel>
-                  </div>
-                </RadioGroup>
-              </FormControl>
+const Payment = () => {
+  const theme = useTheme();
 
-              <TextField margin="dense" fullWidth label="Password"></TextField>
-            </form>
-          </Paper>
+  return (
+    <Paper
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        pb: 5
+      }}>
+      <Typography variant="h4" sx={{ mt: "1rem", ml: "3rem" }}>
+        Payment Details
+      </Typography>
+      <Grid container spacing={6} style={{ padding: "2rem 3rem" }}>
+        <Grid item xs={12} md={6}>
+          <ContentCard>
+            <AccountCard detail={bankDetails[0]} />
+          </ContentCard>
         </Grid>
-      </div>
-
-      <Box sx={{ mx: 3 }} />
-
-      <div>
-        <Grid>
-          <Paper elevation={20} style={paperStyle}>
-            <Grid align="center">
-              <Avatar style={avatarStyle2}>
-                <AccountBalanceIcon />
-              </Avatar>
-              <h1 style={headerStyle}>Bank Account Details</h1>
-            </Grid>
-            <form>
-              <TextField margin="dense" fullWidth label="Account Holder Name"></TextField>
-              <TextField margin="dense" fullWidth label="Account Number"></TextField>
-              <TextField margin="dense" fullWidth label="IFSC Code"></TextField>
-              <TextField margin="dense" fullWidth label="Bank Name"></TextField>
-              <TextField margin="dense" fullWidth label="Branch Name"></TextField>
-            </form>
-          </Paper>
-          <Button variant="contained" SendIcon={<SendIcon />}>
-            Submit
-          </Button>
+        <Grid item xs={12} md={6}>
+          <ContentCard>
+            <AccountCard detail={bankDetails[1]} />
+          </ContentCard>
         </Grid>
-      </div>
-    </Box>
+      </Grid>
+      <Box sx={{ p: "2rem 3rem" }}>
+        <PaymentTable />
+      </Box>
+    </Paper>
   );
 };
 

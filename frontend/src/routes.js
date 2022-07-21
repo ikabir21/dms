@@ -1,26 +1,29 @@
 import React, { lazy } from "react";
 import { useRoutes, Navigate, Outlet } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PaymentIcon from "@mui/icons-material/Payment";
+import Result from "./pages/Result";
 const DefaultLayout = lazy(() => import("./layouts/DefaultLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import Payment from "./pages/Payment";
+const Payment = lazy(() => import("./pages/Payment"));
+const PayNow = lazy(() => import("./pages/PayNow"));
 
 export const dashboardRoutes = [
   { path: "", pathname: "", name: "Dashboard", element: <Dashboard />, icon: <DashboardIcon /> },
   {
     path: "home",
     pathname: "/home",
-    name: "Dashboard",
-    element: <Dashboard />,
-    icon: <DashboardIcon />
+    name: "Payment",
+    element: <Payment />,
+    icon: <PaymentIcon />
   },
   {
-    path: "profile",
+    path: "Results",
     pathname: "/profile",
-    name: "Profile",
-    element: <Dashboard />,
+    name: "Results",
+    element: <Result />,
     icon: <DashboardIcon />
   }
   // { path: "/dashboard", name: "Dashboard", element: Dashboard, icon: DashboardIcon },
@@ -39,7 +42,7 @@ const Routes = () =>
       children: [
         { path: "/", element: <Navigate to="/dashboard" replace /> },
         { path: "auth", element: <Auth /> },
-        { path: "/payment", element: <Payment /> },
+        { path: "/payment", element: <PayNow /> },
         { path: "404", element: <NotFound /> },
         { path: "*", element: <Navigate to="/404" replace /> }
       ]
