@@ -69,7 +69,8 @@ const reducer = (state, action) => {
           accountHolderName: action.payload.bankDetails.accountHolderName,
           ifscCode: action.payload.bankDetails.ifscCode,
           branchName: action.payload.bankDetails.branchName,
-          bankName: action.payload.bankDetails.bankName
+          bankName: action.payload.bankDetails.bankName,
+          prevPayments: action.payload.prevPayments
         }
         console.log(action.payload, payments)
         localStorage.setItem("payments", JSON.stringify(payments));

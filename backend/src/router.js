@@ -13,7 +13,7 @@ const router = express.Router();
 
 // welcome route
 router.get("/", (req, res) => res.send("hello from server!"))
-router.get("/payments", getPayments);
+router.get("/payments", isAuth, getPayments);
 router.get("/profile", isAuth, profile);
 
 // users routes
