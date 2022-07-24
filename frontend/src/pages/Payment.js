@@ -42,73 +42,6 @@ const ContentCard = ({ children, ...rest }) => {
   );
 };
 
-const bankDetails = [
-  [
-    {
-      id: 1,
-      icon: <PersonIcon />,
-      title: "Account Holder Name",
-      data: "Gaurab Das"
-    },
-    {
-      id: 2,
-      icon: <AccountBalanceIcon />,
-      title: "Account Number",
-      data: "3976 7483 2939 5234"
-    },
-    {
-      id: 3,
-      icon: <AccountBalanceIcon />,
-      title: "IFSC Code",
-      data: "SBIN28490299"
-    },
-    {
-      id: 4,
-      icon: <AccountBalanceIcon />,
-      title: "CIF Number",
-      data: "7376 3363 8728 2984"
-    },
-    {
-      id: 5,
-      icon: <CakeIcon />,
-      title: "Date Of Birth",
-      data: "05/12/2000"
-    }
-  ],
-  [
-    {
-      id: 6,
-      icon: <AccountBalanceIcon />,
-      title: "Account Type",
-      data: "Savings"
-    },
-    {
-      id: 7,
-      icon: <PlaceIcon />,
-      title: "Branch",
-      data: "Silchar"
-    },
-    {
-      id: 8,
-      icon: <MobileFriendlyIcon />,
-      title: "Phone Number",
-      data: "7424872882"
-    },
-    {
-      id: 9,
-      icon: <EmailIcon />,
-      title: "Email ID",
-      data: "janedoe@gmail.com"
-    },
-    {
-      id: 10,
-      icon: <CurrencyRupeeIcon />,
-      title: "Account Balance",
-      data: "13,845"
-    }
-  ]
-];
-
 const Payment = () => {
   const { state, actions } = useContext(AppContext);
   React.useEffect(() => {
@@ -135,7 +68,7 @@ const Payment = () => {
         </Grid>
       </Grid>
       <Box sx={{ p: "2rem 3rem" }}>
-        <PaymentTable />
+        <PaymentTable payments={state?.payments?.prevPayments} />
       </Box>
     </Paper>
   );

@@ -64,7 +64,7 @@ const Dashboard = () => {
               <Box>
                 <Avatar
                   alt="Profile Photo"
-                  src={state.profile?.profileUrl}
+                  src={state.user?.profileUrl}
                   sx={{ width: 100, height: 100 }}
                 />
               </Box>

@@ -63,7 +63,8 @@ export const register = async (req, res, next) => {
                 _id: user._id,
                 personalEmail: user.personalEmail,
                 name: user.name,
-                token: generateToken({ _id: user._id, email: personalEmail }),
+                isAdmin: user.role == 1,
+                token: generateToken({ _id: user._id, email: personalEmail, role: user.role }),
                 profileUrl: user.profileUrl
               });
           })
@@ -92,7 +93,9 @@ export const login = (req, res, next) => {
           _id: user._id,
           personalEmail: user.personalEmail,
           name: user.name,
-          token: generateToken({ _id: user._id, email: personalEmail }),
+          isAdmin: user.role == 1,
+          token: generateToken({ _id: user._id, email: personalEmail, role: user.role }),
+          profileUrl: user.profileUrl
         });
       });
     })
