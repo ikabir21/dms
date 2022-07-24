@@ -22,6 +22,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { Box } from "@mui/system";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/styles";
+import { AppContext } from "../context";
+import Header from "../components/Header";
+
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props;
@@ -42,9 +45,40 @@ const TabPanel = (props) => {
 	);
 };
 
-const Auth = () => {
-	const paperStyle = { padding: "25px 20px", width: 500, margin: "20px auto" };
+const stream = [
+	{
+		name: "Please select your branch",
+		code: "NA",
+	},
+	{
+		name: "Computer Science and Engineering",
+		code: "CSE",
+	},
+	{
+		name: "Electronics and Communication Engineering",
+		code: "ECE",
+	},
+	{
+		name: "Electronics and Instrumentation Engineering",
+		code: "EIE",
+	},
+	{
+		name: "Electrical Engineering",
+		code: "EE",
+	},
+	{
+		name: "Mechanical Engineering",
+		code: "ME",
+	},
+	{
+		name: "Civil Engineering",
+		code: "CE",
+	},
+];
 
+const Auth = () => {
+	const theme = useTheme();
+	const { state, actions } = React.useContext(AppContext);
 	const [personalDetails, setPersonalDetails] = React.useState({
 		personalEmail: "",
 		name: "",
@@ -59,63 +93,26 @@ const Auth = () => {
 		branchName: "",
 		bankName: "",
 	});
-
-	const stream = [
-		{
-			name: "Please select your branch",
-			code: "NA",
-		},
-		{
-			name: "Computer Science and Engineering",
-			code: "CSE",
-		},
-		{
-			name: "Electronics and Communication Engineering",
-			code: "ECE",
-		},
-		{
-			name: "Electronics and Instrumentation Engineering",
-			code: "EIE",
-		},
-		{
-			name: "Electrical Engineering",
-			code: "EE",
-		},
-		{
-			name: "Mechanical Engineering",
-			code: "ME",
-		},
-		{
-			name: "Civil Engineering",
-			code: "CE",
-		},
-	];
-
 	const [branch, setBranch] = React.useState("NA");
-
 	const [value, setValue] = React.useState(0);
-
 	const [genderErr, setGenderErr] = React.useState(false);
+	const [branchErr, setBranchErr] = React.useState(false);
+	const changeTab = (event, newValue) => setValue(newValue);
 
-	const changeTab = (event, newValue) => {
-		setValue(newValue);
-	};
-
-	const theme = useTheme();
-
-	function a11yProps(index) {
+	const a11yProps = (index) => {
 		return {
 			id: `full-width-tab-${index}`,
 			"aria-controls": `full-width-tabpanel-${index}`,
 		};
-	}
-
-	const handleChangeIndex = (index) => {
-		setValue(index);
 	};
+
+	const handleChangeIndex = (index) => setValue(index);
 
 	const handleSubmit = () => {
 		console.log(bankDetails, personalDetails);
+		const _branch = stream.find((b) => b.code === branch);
+		personalDetails.branch = _branch;
+		actions.register({ ...personalDetails, bankDetails });
 	};
 
 	const handleInputChange = (e, val) => {
@@ -132,15 +129,16 @@ const Auth = () => {
 		}
 	};
 
-	const [branchErr, setBranchErr] = React.useState(false);
-
 	return (
+		<>
+		<Header />
+		<Box sx={{my: 10}} />
 		<Box
 			sx={{
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
-				height: "120vh",
+				// height: "120vh",
 			}}>
 			<Box sx={{ bgcolor: "background.paper", width: 700 }}>
 				<AppBar position="static">
@@ -162,7 +160,13 @@ const Auth = () => {
 					<TabPanel value={value} index={0} dir={theme.direction}>
 						<div>
 							<Grid>
-								<Paper elevation={20} style={paperStyle}>
+								<Paper
+									elevation={20}
+									sx={{
+										padding: "25px 20px",
+										width: 500,
+										margin: "20px auto",
+									}}>
 									<Grid align="center">
 										<Avatar>
 											<AccountCircleIcon />
@@ -177,10 +181,12 @@ const Auth = () => {
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-                      personalDetails.gender === "" && setGenderErr(true);
-											branch === "NA" && setBranchErr(true)
-                      
-                      personalDetails.gender !== "" && branch !== "NA" && changeTab(e, 1);
+											personalDetails.gender === "" && setGenderErr(true);
+											branch === "NA" && setBranchErr(true);
+
+											personalDetails.gender !== "" &&
+												branch !== "NA" &&
+												changeTab(e, 1);
 										}}>
 										<TextField
 											required
@@ -289,7 +295,13 @@ const Auth = () => {
 					<TabPanel value={value} index={1} dir={theme.direction}>
 						<div>
 							<Grid>
-								<Paper elevation={20} style={paperStyle}>
+								<Paper
+									elevation={20}
+									sx={{
+										padding: "25px 20px",
+										width: 500,
+										margin: "20px auto",
+									}}>
 									<Grid align="center">
 										<Avatar>
 											<AccountBalanceIcon />
@@ -359,6 +371,7 @@ const Auth = () => {
 				</SwipeableViews>
 			</Box>
 		</Box>
+		</>
 	);
 };
 

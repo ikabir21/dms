@@ -31,13 +31,15 @@ const reducer = (state, action) => {
     case LOGIN:
       const user = {
         _id: action.payload._id,
-        accessToken: action.payload.accessToken,
-        name: action.payload.name
+        accessToken: action.payload.token,
+        name: action.payload.name,
+        profileUrl: action.payload.profileUrl
       };
       localStorage.setItem("isAuth", JSON.stringify(true));
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("accessToken", JSON.stringify(user.accessToken));
       return {
+        ...state,
         isAuth: true,
         user: user,
         loading: false
@@ -46,7 +48,8 @@ const reducer = (state, action) => {
     case LOGOUT:
       localStorage.removeItem("user");
       localStorage.removeItem("isAuth");
-      return { isAuth: false, user: null };
+      localStorage.removeItem("accessToken");
+      return { isAuth: false, user: {} };
 
     case SET_PROFILE:
       const profile = {
