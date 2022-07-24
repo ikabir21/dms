@@ -25,7 +25,6 @@ const headerStyles = (theme) => ({
   // },
   login: {
     backgroundColor: "#e1ecf4",
-    color: "#86afcc",
     border: "1px solid #86afcc",
     "&:hover": {
       backgroundColor: "#d5ebfc"

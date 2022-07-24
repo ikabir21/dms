@@ -9,7 +9,7 @@ import {customAlphabet} from "nanoid";
 const getScholardId = (code) => {
   const sc = `${Math.floor((new Date()).getFullYear() / 100)}1`
   const branch = {
-    EI: `${sc}5`,
+    EIE: `${sc}5`,
     CSE: `${sc}2`,
     CE: `${sc}1`,
     ME: `${sc}3`,
@@ -29,6 +29,7 @@ export const register = async (req, res, next) => {
   // if (error) return next(new ErrorMessage(error.details[0].message, 400));
 
   const { name, personalEmail, password, mobile, bankDetails={}, branch={} } = req.body;
+  console.log(req.body);
   const joiningYear = new Date().getFullYear()
   // create scholar id
   User.findOne({ personalEmail })
@@ -63,6 +64,7 @@ export const register = async (req, res, next) => {
                 personalEmail: user.personalEmail,
                 name: user.name,
                 token: generateToken({ _id: user._id, email: personalEmail }),
+                profileUrl: user.profileUrl
               });
           })
           .catch((err) => next(err));

@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema(
     isEmailVerified: { type: Boolean, default: false },
     password: { type: String, default: "" },
     profileUrl: {type: String, default: ""},
+    gender: {type: String, default: ""},
     branch: {
       name: String,
       code: String

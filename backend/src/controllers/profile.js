@@ -40,7 +40,7 @@ export const profile=async(req,res,next)=>{
 
 };
 export const getPayments=async(req,res,next)=>{
-    const id = req.user.id;
+    const id = req.user._id;
     // console.log(id);
      
     User.findById(id).then((user)=>{
