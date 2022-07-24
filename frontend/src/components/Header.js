@@ -67,14 +67,14 @@ const Header = ({ toggleDrawer }) => {
 								color="primary"
 								variant="outlined"
 								component={Link}
-								to="/auth">
+								to="/registration">
 								Login
 							</Button>
 						) : (
 							<>
 								<Avatar
 									onClick={handleClick}
-                  src={state?.user?.profileUrl}
+									src={state?.user?.profileUrl}
 									sx={{
 										width: 48,
 										height: 48,
