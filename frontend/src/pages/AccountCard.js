@@ -59,7 +59,7 @@ function AccountCard({ detail }) {
 				</IconButton>
 				Tap to reveal
 			</Typography>
-			<Button variant="contained" href="/pay-now" sx={{my: 2}} fullWidth>
+			<Button variant="contained" href="/#/pay-now" sx={{my: 2}} fullWidth>
 				Pay Now
 			</Button>
 		</Box>
