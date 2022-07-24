@@ -32,6 +32,9 @@ import AccountCard from "./AccountCard";
 import PaymentTable from "./PaymentTable";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 const ContentCard = ({ children, ...rest }) => {
   const theme = useTheme();
@@ -63,6 +66,14 @@ const Payment = () => {
       }}>
       <Typography variant="h4" sx={{ mt: "3.2rem", ml: "3rem" }}>
         Courses Attended
+        <Button
+          size="large"
+          variant="contained"
+          endIcon={<AddIcon />}
+          sx={{ml: "1rem"}}
+          color="success">
+            Add New Course
+        </Button>
       </Typography>
       <Grid container spacing={6} style={{ padding: "2rem 3rem" }}>
         <Grid item xs={12} md={4}>
@@ -147,8 +158,28 @@ const Payment = () => {
                 Session: Jan-June, 2022
               </Typography>
             </Box>
+
+            <Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth="true" size="large" variant="outlined" startIcon={<DriveFileRenameOutlineIcon />} color="success">
+                  Edit Details
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button
+                  fullWidth="true"
+                  size="large"
+                  variant="contained"
+                  endIcon={<DeleteIcon />}
+                  color="error">
+                  Delete Course
+                </Button>
+              </Grid>
+            </Grid>
+
           </ContentCard>
         </Grid>
+
         <Grid item xs={12} md={4}>
           <ContentCard>
             <Box style={{ display: "flex", alignItems: "baseline", marginBottom: "0.3rem" }}>
@@ -231,6 +262,23 @@ const Payment = () => {
                 Session: Jan-June, 2022
               </Typography>
             </Box>
+            <Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth="true" size="large" variant="outlined" startIcon={<DriveFileRenameOutlineIcon />} color="success">
+                  Edit Details
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button
+                  fullWidth="true"
+                  size="large"
+                  variant="contained"
+                  endIcon={<DeleteIcon />}
+                  color="error">
+                  Delete Course
+                </Button>
+              </Grid>
+            </Grid>
           </ContentCard>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -315,6 +363,23 @@ const Payment = () => {
                 Session: Jan-June, 2022
               </Typography>
             </Box>
+            <Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth="true" size="large" variant="outlined" startIcon={<DriveFileRenameOutlineIcon />} color="success">
+                  Edit Details
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button
+                  fullWidth="true"
+                  size="large"
+                  variant="contained"
+                  endIcon={<DeleteIcon />}
+                  color="error">
+                  Delete Course
+                </Button>
+              </Grid>
+            </Grid>
           </ContentCard>
         </Grid>
       </Grid>

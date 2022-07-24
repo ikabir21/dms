@@ -8,6 +8,8 @@ import { Box } from "@mui/system";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import PersonIcon from '@mui/icons-material/Person';
+import Button from "@mui/material/Button";
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 function AccountCard({detail}) {
   const [clicked, setClicked] = useState(false);
@@ -43,6 +45,7 @@ function AccountCard({detail}) {
         </IconButton>
         Tap to reveal
       </Typography>
+      <Button variant="contained" href="/#/pay-now" color="primary" fullWidth sx={{my: 2}} endIcon={<PaymentsIcon />}>Pay Now</Button>
     </Box>
   );
 }
