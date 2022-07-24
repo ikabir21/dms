@@ -129,15 +129,15 @@ export default function SignInSide() {
         />
         <Box
           sx={{
-            my: 3,
+            my: 7,
             mx: 4,
             display: "flex",
             flexDirection: "column"
           }}>
-          <Typography component="h1" variant="h3" align={alignment}>
+          <Typography component="h1" variant="h3" align={alignment} sx={{color: "#000"}}>
             Payments
           </Typography>
-          <Typography component="h1" variant="subtitle1" sx={{ mt: 2, mb: 1 }} align={alignment}>
+          <Typography component="h1" variant="subtitle1" sx={{ mt: 2, mb: 1, color: "#000" }} align={alignment}>
             Please enter your credentials correctly.
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
@@ -152,6 +152,7 @@ export default function SignInSide() {
               type="text"
               value={values.personName}
               onChange={handleChange}
+              style={{color: "#000"}}
             />
             <TextField
               margin="normal"
@@ -163,6 +164,7 @@ export default function SignInSide() {
               type="email"
               value={values.email}
               onChange={handleChange}
+              style={{color: "#000"}}
             />
             <TextField
               margin="normal"
@@ -175,6 +177,7 @@ export default function SignInSide() {
               // placeholder="+91"
               value={values.phone}
               onChange={handleChange}
+              style={{color: "#000"}}
             />
             <TextField
               margin="normal"
@@ -186,6 +189,7 @@ export default function SignInSide() {
               type="number"
               value={values.amount}
               onChange={handleChange}
+              style={{color: "#000"}}
             />
             <Button
               style={{ borderRadius: "2rem" }}
