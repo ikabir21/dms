@@ -23,3 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 *.env
+
+# solidity
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts
+
