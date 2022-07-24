@@ -11,6 +11,7 @@ import {
 export const initialState = {
   loading: false,
   isAuth: localStorage.getItem("isAuth") ? JSON.parse(localStorage.getItem("isAuth")) : false,
+  isAdmin: localStorage.getItem("isAdmin") ? JSON.parse(localStorage.getItem("isAdmin")) : false,
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
   alerts: [],
   queue: localStorage.getItem("queue") ? JSON.parse(localStorage.getItem("queue")) : {},
@@ -36,6 +37,7 @@ const reducer = (state, action) => {
         profileUrl: action.payload.profileUrl
       };
       localStorage.setItem("isAuth", JSON.stringify(true));
+      localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin));
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("accessToken", JSON.stringify(user.accessToken));
       return {
@@ -49,6 +51,9 @@ const reducer = (state, action) => {
       localStorage.removeItem("user");
       localStorage.removeItem("isAuth");
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("payments");
+      localStorage.removeItem("profile");
+      localStorage.removeItem("isAdmin");
       return { isAuth: false, user: {} };
 
     case SET_PROFILE:

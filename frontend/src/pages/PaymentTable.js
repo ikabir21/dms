@@ -35,26 +35,6 @@ function createData(transaction, amount, status, date) {
   return { transaction, amount, status, date };
 }
 
-const rows = [
-  createData("Payment from Jenny", 5000, "Success", "December 22, 2021"),
-  createData("Payment to John", 2500, "Success", "December 22, 2021"),
-  createData("Payment from Oliver", 2300, "Pending", "December 22, 2021"),
-  createData("Payment from Jack", 5075, "Failed", "December 22, 2021"),
-  createData("Payment to Thomas", 520, "Success", "December 22, 2021"),
-  createData("Payment from Dua", 50, "Pending", "December 22, 2021"),
-  createData("Payment to Beyonce", 2345, "Success", "December 22, 2021"),
-  createData("Payment to Kylie", 10234, "Success", "December 22, 2021"),
-  createData("Payment from Mia", 15689, "Success", "December 22, 2021"),
-  createData("Payment to Dani", 125, "Success", "December 22, 2021"),
-  createData("Payment from Alexis", 930, "Failed", "December 22, 2021"),
-  createData("Payment from Leah", 450, "Success", "December 22, 2021"),
-  createData("Payment from Johny", 222, "Success", "December 22, 2021"),
-  createData("Payment to Rock", 999, "Failed", "December 22, 2021"),
-  createData("Payment from Eminem", 459, "Success", "December 22, 2021"),
-  createData("Payment from Guddu", 47328, "Success", "December 22, 2021"),
-  createData("Payment to Akshay", 252, "Failed", "December 22, 2021"),
-  createData("Payment from Smriti", 50000, "Success", "December 22, 2021")
-];
 
 export default function PaymentTable({payments}) {
   const [page, setPage] = React.useState(0);
@@ -62,10 +42,10 @@ export default function PaymentTable({payments}) {
 
   const rows = [];
   React.useEffect(() => {
-    payments.forEach((el) => {
+    payments?.forEach((el) => {
       rows.push(createData(el.transId, el.amount, el.status, (new Date(el.date)).toDateString()))
     })
-  }, [payments, rows])
+  }, [payments])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

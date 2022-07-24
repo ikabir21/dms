@@ -13,7 +13,7 @@ function AccountCard({ detail }) {
 
 	const getPass = (pass) => {
 		let ans = "";
-		for (let i = 0; i < pass.length; ++i) {
+		for (let i = 0; i < pass?.length; ++i) {
 			ans += "*";
 		}
 		return ans;

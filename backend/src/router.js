@@ -23,5 +23,9 @@ router.post("/login", login)
 // payments routes
 router.post("/payments", makePayments);
 
+// Admin routes
+
+// router
+
 export default router;
 
