@@ -1,28 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, {useContext} from "react";
 import {
   Paper,
-  FormGroup,
-  FormControlLabel,
-  Switch,
   Typography,
   CardContent,
-  CardActions,
-  Button,
+
   Box,
   Card,
   Grid,
-  useTheme,
-  Avatar
+  useTheme
 } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
 import "react-circular-progressbar/dist/styles.css";
-import CBarChart from "../components/BarChart";
-import Divider from "@mui/material/Divider";
-import PersonIcon from "@mui/icons-material/Person";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import PersonIcon from "@mui/icons-material/Person";
 import CakeIcon from "@mui/icons-material/Cake";
 import PlaceIcon from "@mui/icons-material/Place";
 import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
@@ -30,8 +22,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AccountCard from "./AccountCard";
 import PaymentTable from "./PaymentTable";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { AppContext } from "../context";
 
 const ContentCard = ({ children, ...rest }) => {
   const theme = useTheme();
@@ -119,7 +110,12 @@ const bankDetails = [
 ];
 
 const Payment = () => {
-  const theme = useTheme();
+  const { state, actions } = useContext(AppContext);
+  React.useEffect(() => {
+    actions.getPayments();
+  }, [])
+
+  console.log(state.payments);
 
   return (
     <Paper
@@ -131,15 +127,10 @@ const Payment = () => {
       <Typography variant="h4" sx={{ mt: "1rem", ml: "3rem" }}>
         Payment Details
       </Typography>
-      <Grid container spacing={6} style={{ padding: "2rem 3rem" }}>
+      <Grid container justifyContent={"center"} spacing={6} sx={{ padding: "2rem 3rem" }}>
         <Grid item xs={12} md={6}>
           <ContentCard>
-            <AccountCard detail={bankDetails[0]} />
-          </ContentCard>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <ContentCard>
-            <AccountCard detail={bankDetails[1]} />
+            <AccountCard detail={state.payments} />
           </ContentCard>
         </Grid>
       </Grid>

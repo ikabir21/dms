@@ -16,12 +16,11 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import MenuItem from "@mui/material/MenuItem";
-import "./App.css";
 import { Box } from "@mui/system";
 
-const Signup = () => {
+const Registration = () => {
   const paperStyle = { padding: "25px 20px", width: 500, margin: "20px auto" };
-  const headerStyle = { margin: 0, color: "#1F4690" };
+  const headerStyle = { margin: 0, color: "#FFFFFF" };
   const avatarStyle1 = { backgroundColor: "#1bbd7e" };
   const avatarStyle2 = { backgroundColor: "#1bbd7e" };
   const Stream = [
@@ -147,4 +146,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Registration;

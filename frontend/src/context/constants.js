@@ -7,3 +7,5 @@ export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
 
 export const SET_PROFILE = "SET_PROFILE";
+
+export const SET_PAYMENTS = "SET_PAYMENTS";

@@ -27,7 +27,7 @@ export const profile=async(req,res,next)=>{
 
 };
 export const payments=async(req,res,next)=>{
-    const id = req.user.id;
+    const id = req.user._id;
     // console.log(id);
      
     User.findById(id).then((user)=>{

@@ -3,7 +3,8 @@ import {
   LOADING,
   LOGOUT,
   REGISTER,
-  SET_PROFILE
+  SET_PROFILE,
+  SET_PAYMENTS
 } from "./constants";
 
 const getActions = (dispatch) => {
@@ -56,7 +57,23 @@ const getActions = (dispatch) => {
 
         alert(msg)
       }
-    }
+    },
+    getPayments: async () => {
+      dispatch({ type: LOADING });
+      try {
+        const { data } = await Axios.get("/payments");
+        console.log(data)
+        dispatch({ type: SET_PAYMENTS, payload: data });
+      } catch (error) {
+        const msg = error.response.status === 401
+        ? "Access Denied"
+        : error.response && error.response?.data?.message
+        ? error.response?.data?.message
+        : error.message
+
+        alert(msg)
+      }
+    },
   };
 };
 

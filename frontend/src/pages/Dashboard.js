@@ -97,7 +97,7 @@ const Dashboard = () => {
             </Box>
             <Box style={{ display: "flex", alignItems: "baseline" }}>
               <Typography variant="subtitle1" component="span">
-                Branch: {state.profile?.branch.code}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Batch: 2019-23
+                Branch: {state.profile?.branch?.code}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Batch: 2019-23
               </Typography>
             </Box>
           </ContentCard>

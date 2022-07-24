@@ -4,7 +4,8 @@ import {
   LOGIN,
   LOADING,
   LOGOUT,
-  SET_PROFILE
+  SET_PROFILE,
+  SET_PAYMENTS
 } from "./constants";
 
 export const initialState = {
@@ -12,9 +13,10 @@ export const initialState = {
   isAuth: localStorage.getItem("isAuth") ? JSON.parse(localStorage.getItem("isAuth")) : false,
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
   alerts: [],
-  queue: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
+  queue: localStorage.getItem("queue") ? JSON.parse(localStorage.getItem("queue")) : {},
   isQueueCreated: false,
-  profile: localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : null
+  profile: localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : null,
+  payments: localStorage.getItem("payments") ? JSON.parse(localStorage.getItem("payments")) : null,
 };
 
 const reducer = (state, action) => {
@@ -58,6 +60,17 @@ const reducer = (state, action) => {
       localStorage.setItem("profile", JSON.stringify(profile));
       return { ...state, profile };
 
+      case SET_PAYMENTS:
+        const payments = {
+          accountNo: action.payload.bankDetails.accountNo,
+          accountHolderName: action.payload.bankDetails.accountHolderName,
+          ifscCode: action.payload.bankDetails.ifscCode,
+          branchName: action.payload.bankDetails.branchName,
+          bankName: action.payload.bankDetails.bankName
+        }
+        console.log(action.payload, payments)
+        localStorage.setItem("payments", JSON.stringify(payments));
+        return { ...state, payments };
     default:
       return state;
   }

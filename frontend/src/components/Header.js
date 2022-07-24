@@ -26,12 +26,12 @@ const Header = ({toggleDrawer}) => {
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
-            <Typography component={Link} to="/" variant="h5">
+            <Typography color="primary" component={Link} to="/" variant="h5">
               SDocs
             </Typography>
           </Stack>
           <div>
-            <Button variant="outlined" component={Link} to="/auth" className={classes.login}>
+            <Button color="primary" variant="outlined" component={Link} to="/auth">
               Login
             </Button>
           </div>

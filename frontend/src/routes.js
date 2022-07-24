@@ -8,7 +8,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Payment = lazy(() => import("./pages/Payment"));
-const PayNow = lazy(() => import("./pages/PayNow"));
+const Registration = lazy(() => import("./pages/Registration"));
 
 export const dashboardRoutes = [
   { path: "", pathname: "", name: "Dashboard", element: <Dashboard />, icon: <DashboardIcon /> },
@@ -42,7 +42,7 @@ const Routes = () =>
       children: [
         { path: "/", element: <Navigate to="/dashboard" replace /> },
         { path: "auth", element: <Auth /> },
-        { path: "/payment", element: <PayNow /> },
+        { path: "/registration", element: <Registration /> },
         { path: "404", element: <NotFound /> },
         { path: "*", element: <Navigate to="/404" replace /> }
       ]
