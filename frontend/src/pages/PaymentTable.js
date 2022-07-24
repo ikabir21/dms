@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 const columns = [
-  { id: "transaction", label: "Transaction", align: "left", minWidth: 170 },
+  { id: "transaction", label: "Transaction Id", align: "left", minWidth: 170 },
   {
     id: "amount",
     label: "Amount (Rs.)",
@@ -56,9 +56,16 @@ const rows = [
   createData("Payment from Smriti", 50000, "Success", "December 22, 2021")
 ];
 
-export default function PaymentTable() {
+export default function PaymentTable({payments}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const rows = [];
+  React.useEffect(() => {
+    payments.forEach((el) => {
+      rows.push(createData(el.transId, el.amount, el.status, (new Date(el.date)).toDateString()))
+    })
+  }, [payments, rows])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // MI Imports
 import { makeStyles } from "@mui/styles";
@@ -28,6 +28,7 @@ const Header = ({ toggleDrawer }) => {
 	const { state, actions } = React.useContext(AppContext);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
+	const navigate = useNavigate();
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -36,6 +37,10 @@ const Header = ({ toggleDrawer }) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	React.useEffect(() => {
+		!state.isAuth && navigate("/login")
+	}, [state.isAuth, navigate])
 
 	return (
 		<Box>
@@ -67,7 +72,7 @@ const Header = ({ toggleDrawer }) => {
 								color="primary"
 								variant="outlined"
 								component={Link}
-								to="/registration">
+								to="/login">
 								Login
 							</Button>
 						) : (

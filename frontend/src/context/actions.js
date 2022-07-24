@@ -16,13 +16,29 @@ const getActions = (dispatch) => {
         const { data } = await Axios.post("/login", user);
         console.log(data);
         dispatch({ type: REGISTER, payload: data });
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are logged in succesfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.href = "/"
+        }, 1800)
       } catch (error) {
         const msg = error.response.status === 401
         ? "Access Denied"
         : error.response && error.response?.data?.message
         ? error.response?.data?.message
         : error.message
-        alert(msg)
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
     register: async (user) => {
@@ -38,7 +54,9 @@ const getActions = (dispatch) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href = "/"
+        setTimeout(() => {
+          window.location.href = "/"
+        }, 1800)
       } catch (error) {
         const msg = error.response.status === 401
         ? "Already Registered"

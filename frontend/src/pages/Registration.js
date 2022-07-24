@@ -14,6 +14,7 @@ import {
 	Tab,
 	AppBar,
 	FormHelperText,
+	Link,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
@@ -24,7 +25,6 @@ import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/styles";
 import { AppContext } from "../context";
 import Header from "../components/Header";
-
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props;
@@ -131,246 +131,258 @@ const Registration = () => {
 
 	return (
 		<>
-		<Header />
-		<Box sx={{my: 10}} />
-		<Box
-			sx={{
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				// height: "120vh",
-			}}>
-			<Box sx={{ bgcolor: "background.paper", width: 700 }}>
-				<AppBar position="static">
-					<Tabs
-						value={value}
-						onChange={changeTab}
-						indicatorColor="secondary"
-						textColor="inherit"
-						variant="fullWidth"
-						aria-label="full width tabs example">
-						<Tab label="Step 1" {...a11yProps(0)} />
-						<Tab label="Step 2" {...a11yProps(1)} />
-					</Tabs>
-				</AppBar>
-				<SwipeableViews
-					axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-					index={value}
-					onChangeIndex={handleChangeIndex}>
-					<TabPanel value={value} index={0} dir={theme.direction}>
-						<div>
-							<Grid>
-								<Paper
-									elevation={20}
-									sx={{
-										padding: "25px 20px",
-										width: 500,
-										margin: "20px auto",
-									}}>
-									<Grid align="center">
-										<Avatar>
-											<AccountCircleIcon />
-										</Avatar>
-										<Typography color="primary" variant="h4" sx={{ my: 1 }}>
-											Personal Details
-										</Typography>
-										<Typography variant="caption">
-											Please fill the form to complete the Registration process.{" "}
-										</Typography>
-									</Grid>
-									<form
-										onSubmit={(e) => {
-											e.preventDefault();
-											personalDetails.gender === "" && setGenderErr(true);
-											branch === "NA" && setBranchErr(true);
-
-											personalDetails.gender !== "" &&
-												branch !== "NA" &&
-												changeTab(e, 1);
+			<Header />
+			<Box sx={{ my: 10 }} />
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					// height: "120vh",
+				}}>
+				<Box sx={{ bgcolor: "background.paper", width: 700 }}>
+					<AppBar position="static">
+						<Tabs
+							value={value}
+							onChange={changeTab}
+							indicatorColor="secondary"
+							textColor="inherit"
+							variant="fullWidth"
+							aria-label="full width tabs example">
+							<Tab label="Step 1" {...a11yProps(0)} />
+							<Tab label="Step 2" {...a11yProps(1)} />
+						</Tabs>
+					</AppBar>
+					<SwipeableViews
+						axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+						index={value}
+						onChangeIndex={handleChangeIndex}>
+						<TabPanel value={value} index={0} dir={theme.direction}>
+							<div>
+								<Grid>
+									<Paper
+										elevation={20}
+										sx={{
+											padding: "25px 20px",
+											width: 500,
+											margin: "20px auto",
 										}}>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "personalDetails")}
-											margin="dense"
-											fullWidth
-											label="Full Name"
-											value={personalDetails.name}
-											name="name"
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "personalDetails")}
-											margin="dense"
-											fullWidth
-											label="Email Id"
-											value={personalDetails.personalEmail}
-											name="personalEmail"
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "personalDetails")}
-											margin="dense"
-											fullWidth
-											label="Password"
-											name="password"
-											value={personalDetails.password}
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "personalDetails")}
-											margin="dense"
-											fullWidth
-											label="Mobile No"
-											value={personalDetails.mobile}
-											name="mobile"
-										/>
-										<TextField
-											required
-											margin="dense"
-											fullWidth
-											select
-											error={branchErr}
-											label="Branch"
-											value={branch}
-											onChange={(e) => {
-												e.target.value !== "NA" && setBranchErr(false);
-												setBranch(e.target.value);
-											}}
-											helperText={branchErr && "Please select your Branch"}>
-											{stream.map((option) => (
-												<MenuItem key={option.code} value={option.code}>
-													{option.name}
-												</MenuItem>
-											))}
-										</TextField>
-										<FormControl>
-											<FormLabel>Gender</FormLabel>
-											<RadioGroup
-												name="gender"
-												onChange={(e) => {
-													e.target.value !== "" && setGenderErr(false);
-													handleInputChange(e, "personalDetails");
-												}}
+										<Grid align="center">
+											<Avatar>
+												<AccountCircleIcon />
+											</Avatar>
+											<Typography color="primary" variant="h4" sx={{ my: 1 }}>
+												Personal Details
+											</Typography>
+											<Typography variant="caption">
+												Please fill the form to complete the Registration
+												process.{" "}
+											</Typography>
+										</Grid>
+										<form
+											onSubmit={(e) => {
+												e.preventDefault();
+												personalDetails.gender === "" && setGenderErr(true);
+												branch === "NA" && setBranchErr(true);
+
+												personalDetails.gender !== "" &&
+													branch !== "NA" &&
+													changeTab(e, 1);
+											}}>
+											<TextField
 												required
-												value={personalDetails.gender}>
-												<div>
-													<FormControlLabel
-														aria-required="true"
-														value="male"
-														control={<Radio />}
-														label="Male"
-													/>
-													<FormControlLabel
-														aria-required="true"
-														value="female"
-														control={<Radio />}
-														label="Female"
-													/>
-													<FormControlLabel
-														aria-required="true"
-														value="other"
-														control={<Radio />}
-														label="Other"
-													/>
-												</div>
-											</RadioGroup>
-											{genderErr && (
-												<FormHelperText error={true}>
-													Please Select gender
-												</FormHelperText>
-											)}
-										</FormControl>
+												onChange={(e) =>
+													handleInputChange(e, "personalDetails")
+												}
+												margin="dense"
+												fullWidth
+												label="Full Name"
+												value={personalDetails.name}
+												name="name"
+											/>
+											<TextField
+												required
+												onChange={(e) =>
+													handleInputChange(e, "personalDetails")
+												}
+												margin="dense"
+												fullWidth
+												label="Email Id"
+												value={personalDetails.personalEmail}
+												name="personalEmail"
+											/>
+											<TextField
+												required
+												onChange={(e) =>
+													handleInputChange(e, "personalDetails")
+												}
+												margin="dense"
+												fullWidth
+												label="Password"
+												name="password"
+												value={personalDetails.password}
+											/>
+											<TextField
+												required
+												onChange={(e) =>
+													handleInputChange(e, "personalDetails")
+												}
+												margin="dense"
+												fullWidth
+												label="Mobile No"
+												value={personalDetails.mobile}
+												name="mobile"
+											/>
+											<TextField
+												required
+												margin="dense"
+												fullWidth
+												select
+												error={branchErr}
+												label="Branch"
+												value={branch}
+												onChange={(e) => {
+													e.target.value !== "NA" && setBranchErr(false);
+													setBranch(e.target.value);
+												}}
+												helperText={branchErr && "Please select your Branch"}>
+												{stream.map((option) => (
+													<MenuItem key={option.code} value={option.code}>
+														{option.name}
+													</MenuItem>
+												))}
+											</TextField>
+											<FormControl>
+												<FormLabel>Gender</FormLabel>
+												<RadioGroup
+													name="gender"
+													onChange={(e) => {
+														e.target.value !== "" && setGenderErr(false);
+														handleInputChange(e, "personalDetails");
+													}}
+													required
+													value={personalDetails.gender}>
+													<div>
+														<FormControlLabel
+															aria-required="true"
+															value="male"
+															control={<Radio />}
+															label="Male"
+														/>
+														<FormControlLabel
+															aria-required="true"
+															value="female"
+															control={<Radio />}
+															label="Female"
+														/>
+														<FormControlLabel
+															aria-required="true"
+															value="other"
+															control={<Radio />}
+															label="Other"
+														/>
+													</div>
+												</RadioGroup>
+												{genderErr && (
+													<FormHelperText error={true}>
+														Please Select gender
+													</FormHelperText>
+												)}
+											</FormControl>
+											<Button
+												type="submit"
+												sx={{ mt: 2 }}
+												fullWidth
+												variant="contained">
+												Continue
+											</Button>
+											<Link href="/#/login" variant="body2">
+												{"Already have an account? Sign In"}
+											</Link>
+										</form>
+									</Paper>
+								</Grid>
+							</div>
+						</TabPanel>
+						<TabPanel value={value} index={1} dir={theme.direction}>
+							<div>
+								<Grid>
+									<Paper
+										elevation={20}
+										sx={{
+											padding: "25px 20px",
+											width: 500,
+											margin: "20px auto",
+										}}>
+										<Grid align="center">
+											<Avatar>
+												<AccountBalanceIcon />
+											</Avatar>
+											<Typography color="primary" variant="h4" sx={{ my: 1 }}>
+												Bank Account Details
+											</Typography>
+										</Grid>
+										<form>
+											<TextField
+												required
+												onChange={(e) => handleInputChange(e, "bankDetails")}
+												margin="dense"
+												fullWidth
+												name="accountHolderName"
+												label="Account Holder Name"
+												value={bankDetails.accountHolderName}
+											/>
+											<TextField
+												required
+												onChange={(e) => handleInputChange(e, "bankDetails")}
+												margin="dense"
+												name="accountNo"
+												fullWidth
+												label="Account Number"
+												value={bankDetails.accountNo}
+											/>
+											<TextField
+												required
+												onChange={(e) => handleInputChange(e, "bankDetails")}
+												margin="dense"
+												fullWidth
+												label="IFSC Code"
+												name="ifscCode"
+												value={bankDetails.ifscCode}
+											/>
+											<TextField
+												required
+												onChange={(e) => handleInputChange(e, "bankDetails")}
+												margin="dense"
+												fullWidth
+												label="Bank Name"
+												name="bankName"
+												value={bankDetails.bankName}
+											/>
+											<TextField
+												required
+												onChange={(e) => handleInputChange(e, "bankDetails")}
+												margin="dense"
+												name="branchName"
+												fullWidth
+												label="Branch Name"
+												value={bankDetails.branchName}
+											/>
+										</form>
 										<Button
-											type="submit"
 											sx={{ mt: 2 }}
 											fullWidth
-											variant="contained">
-											Continue
+											variant="contained"
+											onClick={handleSubmit}>
+											Register
 										</Button>
-									</form>
-								</Paper>
-							</Grid>
-						</div>
-					</TabPanel>
-					<TabPanel value={value} index={1} dir={theme.direction}>
-						<div>
-							<Grid>
-								<Paper
-									elevation={20}
-									sx={{
-										padding: "25px 20px",
-										width: 500,
-										margin: "20px auto",
-									}}>
-									<Grid align="center">
-										<Avatar>
-											<AccountBalanceIcon />
-										</Avatar>
-										<Typography color="primary" variant="h4" sx={{ my: 1 }}>
-											Bank Account Details
-										</Typography>
-									</Grid>
-									<form>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "bankDetails")}
-											margin="dense"
-											fullWidth
-											name="accountHolderName"
-											label="Account Holder Name"
-											value={bankDetails.accountHolderName}
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "bankDetails")}
-											margin="dense"
-											name="accountNo"
-											fullWidth
-											label="Account Number"
-											value={bankDetails.accountNo}
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "bankDetails")}
-											margin="dense"
-											fullWidth
-											label="IFSC Code"
-											name="ifscCode"
-											value={bankDetails.ifscCode}
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "bankDetails")}
-											margin="dense"
-											fullWidth
-											label="Bank Name"
-											name="bankName"
-											value={bankDetails.bankName}
-										/>
-										<TextField
-											required
-											onChange={(e) => handleInputChange(e, "bankDetails")}
-											margin="dense"
-											name="branchName"
-											fullWidth
-											label="Branch Name"
-											value={bankDetails.branchName}
-										/>
-									</form>
-									<Button
-										sx={{ mt: 2 }}
-										fullWidth
-										variant="contained"
-										onClick={handleSubmit}>
-										Register
-									</Button>
-								</Paper>
-							</Grid>
-						</div>
-					</TabPanel>
-				</SwipeableViews>
+									</Paper>
+								</Grid>
+							</div>
+						</TabPanel>
+					</SwipeableViews>
+				</Box>
 			</Box>
-		</Box>
 		</>
 	);
 };

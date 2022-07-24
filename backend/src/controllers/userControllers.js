@@ -93,6 +93,7 @@ export const login = (req, res, next) => {
           personalEmail: user.personalEmail,
           name: user.name,
           token: generateToken({ _id: user._id, email: personalEmail }),
+          profileUrl: user.profileUrl
         });
       });
     })
