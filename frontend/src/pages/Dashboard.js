@@ -18,6 +18,9 @@ import CBarChart from "../components/BarChart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { AppContext } from "../context";
+import DeleteIcon from '@mui/icons-material/Delete';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import AddIcon from '@mui/icons-material/Add';
 
 const ContentCard = ({ children, ...rest }) => {
   const theme = useTheme();
@@ -124,18 +127,28 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      <ContentCard sx={{ maxWidth: "800px", ml: 6 }}>
-        <Typography variant="h4" align="center">
-          CGPA VARIATIONS
-        </Typography>
-        <Typography variant="subtitle1" align="center">
-          (till 6<sup>th</sup> sem)
-        </Typography>
-        <CBarChart />
-      </ContentCard>
+      <Box sx={{ maxWidth: "800px", ml: 6 }}>
+        <ContentCard sx={{ maxWidth: "800px", ml: 6 }}>
+          <Typography variant="h4" align="center">
+            CGPA VARIATIONS
+          </Typography>
+          <Typography variant="subtitle1" align="center">
+            (till 6<sup>th</sup> sem)
+          </Typography>
+          <CBarChart />
+        </ContentCard>
+      </Box>
 
-      <Typography variant="h4" sx={{ mt: "1rem", ml: "3rem" }}>
+      <Typography variant="h4" sx={{ mt: "2rem", ml: "3rem" }}>
         Projects
+        <Button
+          size="large"
+          variant="contained"
+          endIcon={<AddIcon />}
+          sx={{ml: "1rem"}}
+          color="success">
+            Add New Project
+        </Button>
       </Typography>
       <Grid container spacing={6} style={{ padding: "2rem 3rem" }}>
         <Grid item xs={12} md={6}>
@@ -156,27 +169,41 @@ const Dashboard = () => {
                 Institute of Technology, Silchar.
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}>
-              <Box>
-                <Button size="large" variant="contained" startIcon={<GitHubIcon />} color="success">
-                  GitHub
+
+            <Grid container spacing={6}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth="true" size="large" variant="outlined" startIcon={<GitHubIcon />} color="success">
+                  GitHub Repo
                 </Button>
-              </Box>
-              <Box>
+              </Grid>
+              <Grid item xs={12} md={6}>
                 <Button
+                  fullWidth="true"
                   size="large"
                   variant="contained"
                   endIcon={<ArrowForwardIosIcon />}
-                  color="error">
-                  Visit Website
+                  color="success">
+                  View Project
                 </Button>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
+            <Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
+              <Grid item xs={12} md={6}>
+                <Button fullWidth="true" size="large" variant="outlined" startIcon={<DriveFileRenameOutlineIcon />} color="success">
+                  Edit Details
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button
+                  fullWidth="true"
+                  size="large"
+                  variant="contained"
+                  endIcon={<DeleteIcon />}
+                  color="error">
+                  Delete Project
+                </Button>
+              </Grid>
+            </Grid>
           </ContentCard>
         </Grid>
       </Grid>
