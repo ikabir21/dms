@@ -67,7 +67,7 @@ const Header = ({ toggleDrawer }) => {
 								color="primary"
 								variant="outlined"
 								component={Link}
-								to="/registration">
+								to="/login">
 								Login
 							</Button>
 						) : (
