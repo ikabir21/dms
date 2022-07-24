@@ -50,7 +50,6 @@ const Routes = () =>
         { path: "auth", element: <Auth /> },
         { path: "/payment", element: <PayNow /> },
         { path: "404", element: <NotFound /> },
-        { path: "/pay-now", element: <PaymentForm /> },
         { path: "*", element: <Navigate to="/404" replace /> },
       ],
     },
