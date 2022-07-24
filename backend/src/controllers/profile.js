@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import Result from "../models/resultModel.js";
 import ErrorMessage from "../utils/errorMessage.js";
 import validate from "../validators/validate.js";
 
@@ -9,6 +10,17 @@ export const profile=async(req,res,next)=>{
      
     User.findById(id).then((user)=>{
         if(user){
+            // console.log(user);
+           let  results=user.results;
+          console.log(user);
+          let resultarry=[];
+          console.log(results);
+            results.forEach(element => {
+                console.log(element);
+                Result.findById(element.resultId).then((result)=>{
+                    resultarry.push(result);
+                })
+            });
             return res.status(200).json({
             success: true,
               name:user.name,
@@ -17,6 +29,7 @@ export const profile=async(req,res,next)=>{
               scholarId:user.scholarId,
               mobile:user.mobile,
               branch:user.branch,
+               results:resultarry
               
         });
     }
@@ -26,7 +39,7 @@ export const profile=async(req,res,next)=>{
 
 
 };
-export const payments=async(req,res,next)=>{
+export const getPayments=async(req,res,next)=>{
     const id = req.user._id;
     // console.log(id);
      

@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema(
     personalEmail: { type: String, unique: true },
     instituteEmail: { type: String, unique: true },
     scholarId: String,
+    batch:String,
     role: {type: Number, default: 0},
     mobile: { type: String,  unique: true},
     isEmailVerified: { type: Boolean, default: false },
@@ -48,7 +49,12 @@ const userSchema = mongoose.Schema(
         date:String
       }
     ],
-    results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Result' }]
+    results: [{
+      resultId: {
+         type: mongoose.Schema.Types.ObjectId, ref: 'Result' 
+    }
+  }
+    ]
   },
   { timestamps: true }
 );

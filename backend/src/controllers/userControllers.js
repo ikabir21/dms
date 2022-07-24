@@ -1,6 +1,7 @@
 // import { SIGNIN, SIGNUP } from "../config/constants.js";
 // import validate from "../validators/validate.js";
 import User from "../models/userModel.js";
+
 import ErrorMessage from "../utils/errorMessage.js";
 import { generateToken } from "../utils/jwt.js";
 import {customAlphabet} from "nanoid";
@@ -39,7 +40,9 @@ export const register = async (req, res, next) => {
         const scholarId = getScholardId(branch.code) + ("00" + (users.length + 1)).slice(-3);
         // console.log(scholarId);
         const instituteEmail = getEmail(name, branch.code);
-  
+        const batch=`${(new Date().getFullYear())} - ${(new Date().getFullYear())+4}`
+        console.log(batch);
+        const semester="1st";
         User.create({ 
           name, 
           personalEmail, 
@@ -48,7 +51,9 @@ export const register = async (req, res, next) => {
           joiningYear, mobile, 
           bankDetails, 
           branch, 
-          scholarId
+          scholarId,
+          semester,
+          batch
          })
           .then((user) => {
             if (user)

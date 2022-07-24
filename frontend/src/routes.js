@@ -11,21 +11,27 @@ const Payment = lazy(() => import("./pages/Payment"));
 const Registration = lazy(() => import("./pages/Registration"));
 
 export const dashboardRoutes = [
-  { path: "", pathname: "", name: "Dashboard", element: <Dashboard />, icon: <DashboardIcon /> },
+  {
+    path: "",
+    pathname: "",
+    name: "Dashboard",
+    element: <Dashboard />,
+    icon: <DashboardIcon />,
+  },
   {
     path: "home",
     pathname: "/home",
     name: "Payment",
     element: <Payment />,
-    icon: <PaymentIcon />
+    icon: <PaymentIcon />,
   },
   {
     path: "Results",
     pathname: "/profile",
     name: "Results",
     element: <Result />,
-    icon: <DashboardIcon />
-  }
+    icon: <DashboardIcon />,
+  },
   // { path: "/dashboard", name: "Dashboard", element: Dashboard, icon: DashboardIcon },
 ];
 
@@ -34,7 +40,7 @@ const Routes = () =>
     {
       path: "/dashboard",
       element: <DefaultLayout />,
-      children: dashboardRoutes
+      children: dashboardRoutes,
     },
     {
       path: "/",
@@ -44,10 +50,10 @@ const Routes = () =>
         { path: "auth", element: <Auth /> },
         { path: "/registration", element: <Registration /> },
         { path: "404", element: <NotFound /> },
-        { path: "*", element: <Navigate to="/404" replace /> }
-      ]
+        { path: "*", element: <Navigate to="/404" replace /> },
+      ],
     },
-    { path: "*", element: <Navigate to="/404" replace /> }
+    { path: "*", element: <Navigate to="/404" replace /> },
   ]);
 
 export default Routes;

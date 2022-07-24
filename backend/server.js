@@ -8,11 +8,12 @@ import connectDB from "./src/config/db.js";
 dotenv.config();
 const app = express();
 
-  const { DB_URL, PORT = 4000 } = process.env;
-// const DB_URL="mongodb://localhost:27017/users";
-// const PORT=3000;
+  // const { DB_URL, PORT = 4000 } = process.env;
+const DB_URL="mongodb://localhost:27017/newDB";
+const PORT=4000;
 await connectDB(DB_URL);
 configureExpress(app);
+
 
 // Run the server
 app.listen(PORT, () =>
