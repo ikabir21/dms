@@ -2,7 +2,7 @@ import express from "express";
 import { login, register } from "./controllers/userControllers.js";
 
 import { isAuth } from "./middlewares/authMiddlewares.js";
-import { profile, getPayments } from "./controllers/profile.js";
+import { profile, getPayments, addProjects, deleteProjects } from "./controllers/profile.js";
 import { makePayments } from "./controllers/paymentControllers.js";
 // project imports
 import { upload } from "./middlewares/fileUploadMiddleware.js";
@@ -14,12 +14,14 @@ const router = express.Router();
 
 // welcome route
 router.get("/", (req, res) => res.send("hello from server!"));
-router.get("/payments", isAuth, getPayments);
-router.get("/profile", isAuth, profile);
 
 // users routes
 router.post("/register", register);
 router.post("/login", login);
+router.post("/add-projects", isAuth, addProjects);
+router.get("/payments", isAuth, getPayments);
+router.get("/profile", isAuth, profile);
+router.delete("/delete-projects/:id", isAuth, deleteProjects);
 
 // payments routes
 router.post("/payments", makePayments);

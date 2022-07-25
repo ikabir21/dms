@@ -5,7 +5,9 @@ import {
 	REGISTER,
 	SET_PROFILE,
 	SET_PAYMENTS,
-  UPLOAD_FILE
+	UPLOAD_FILE,
+	ADD_PROJECTS,
+	DELETE_PROJECTS
 } from "./constants";
 import Swal from "sweetalert2";
 
@@ -92,24 +94,8 @@ const getActions = (dispatch) => {
 						? error.response?.data?.message
 						: error.message;
 
-				alert(msg);
-			}
-		},
-		getResults: async () => {
-			dispatch({ type: LOADING });
-			try {
-				const { data } = await Axios.get("/profile");
-				console.log(data);
-				dispatch({ type: SET_PROFILE, payload: data });
-			} catch (error) {
-				const msg =
-					error.response.status === 401
-						? "Access Denied"
-						: error.response && error.response?.data?.message
-						? error.response?.data?.message
-						: error.message;
-
-				alert(msg);
+				// alert(msg);
+				window.location.href = "/#/login";
 			}
 		},
 		getPayments: async () => {
@@ -138,6 +124,62 @@ const getActions = (dispatch) => {
 					position: "top-end",
 					icon: "success",
 					title: "File uploaded succesfully!",
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			} catch (error) {
+				const msg =
+					error.response.status === 401
+						? "Access Denied"
+						: error.response && error.response?.data?.message
+						? error.response?.data?.message
+						: error.message;
+				Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title: `${msg}`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			}
+		},
+		addProjects: async (projects) => {
+			dispatch({ type: LOADING });
+			try {
+				const { data } = await Axios.post("/add-projects", projects);
+				dispatch({ type: ADD_PROJECTS, payload: projects });
+				Swal.fire({
+					position: "top-end",
+					icon: "success",
+					title: "Project added succesfully!",
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			} catch (error) {
+				const msg =
+					error.response.status === 401
+						? "Access Denied"
+						: error.response && error.response?.data?.message
+						? error.response?.data?.message
+						: error.message;
+				Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title: `${msg}`,
+					showConfirmButton: false,
+					timer: 1500,
+				});
+			}
+		},
+		deleteProjects: async (id) => {
+			dispatch({ type: LOADING });
+			try {
+				const { data } = await Axios.delete(`/delete-projects/${id}`);
+				dispatch({ type: DELETE_PROJECTS, payload: id });
+				Swal.fire({
+					position: "top-end",
+					icon: "success",
+					title: "Project deleted succesfully!",
 					showConfirmButton: false,
 					timer: 1500,
 				});

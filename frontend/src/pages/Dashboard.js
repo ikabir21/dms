@@ -11,6 +11,9 @@ import {
 	Grid,
 	useTheme,
 	Avatar,
+	ClickAwayListener,
+	Portal,
+	TextField,
 } from "@mui/material";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -21,6 +24,122 @@ import { AppContext } from "../context";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import AddIcon from "@mui/icons-material/Add";
+import AddCardIcon from "@mui/icons-material/AddCard";
+import SendIcon from "@mui/icons-material/Send";
+import { useState } from "react";
+
+const AddProject = ({ open, setOpen }) => {
+	const { state, actions } = useContext(AppContext);
+	const [projects, setProjects] = useState({
+		name: "",
+		team: "",
+		desc: "",
+		github: "",
+		link: "",
+	});
+	const styles = {
+		position: "fixed",
+		// width: 650,
+		top: "50%",
+		left: "50%",
+		transform: "translate(-50%, -50%)",
+		borderRadius: 3,
+		p: 5,
+		bgcolor: "background.default",
+	};
+
+	const paperStyle = { padding: "25px 20px", width: 500, margin: "20px auto" };
+	const avatarStyle2 = { backgroundColor: "#1bbd7e" };
+
+	const handleClick = () => {
+		setOpen((state) => !state);
+	};
+
+	const handleSubmit = () => {
+		console.log(projects);
+		actions.addProjects(projects);
+	};
+
+	const handleChange = (e) => {
+		setProjects((state) => ({ ...state, [e.target.name]: e.target.value }));
+	};
+
+	return (
+		<ClickAwayListener onClickAway={handleClick}>
+			<div>
+				{open ? (
+					<Portal>
+						<Box sx={styles}>
+							<Paper elevation={20} style={paperStyle}>
+								<Grid align="center">
+									<Avatar style={avatarStyle2}>
+										<AddCardIcon />
+									</Avatar>
+									<Typography variant="h4" sx={{ my: 2 }} color="primary">
+										Add Projects
+									</Typography>
+								</Grid>
+								<form>
+									<TextField
+										onChange={handleChange}
+										margin="dense"
+										fullWidth
+										label="Project Name"
+										name="name"
+										value={projects.name}
+									/>
+									<TextField
+										onChange={handleChange}
+										margin="dense"
+										fullWidth
+										label="Team"
+										name="team"
+										value={projects.name}
+									/>
+									<TextField
+										onChange={handleChange}
+										margin="dense"
+										fullWidth
+										label="Project Description"
+										name="desc"
+										value={projects.desc}
+									/>
+									<TextField
+										onChange={handleChange}
+										margin="dense"
+										fullWidth
+										label="Github Link"
+										name="github"
+										value={projects.github}
+										type="url"
+									/>
+									<TextField
+										onChange={handleChange}
+										margin="dense"
+										fullWidth
+										label="Project Link"
+										name="link"
+										value={projects.link}
+										type="url"
+									/>
+									<Button
+										justify="center"
+										sx={{ my: 2 }}
+										variant="contained"
+										fullWidth
+										SendIcon={<SendIcon />}
+										onClick={handleSubmit}>
+										Submit
+									</Button>
+								</form>
+							</Paper>
+						</Box>
+					</Portal>
+				) : null}
+			</div>
+		</ClickAwayListener>
+	);
+};
 
 const ContentCard = ({ children, ...rest }) => {
 	const theme = useTheme();
@@ -43,12 +162,21 @@ const ContentCard = ({ children, ...rest }) => {
 
 const Dashboard = () => {
 	const { state, actions } = useContext(AppContext);
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+		setOpen((prev) => !prev);
+	};
 
 	useEffect(() => {
 		actions.getProfile();
 	}, []);
 
 	console.log(state.profile);
+
+	const handleDelete = (id) => {
+		actions.deleteProjects(id);
+	};
 
 	return (
 		<Paper
@@ -181,91 +309,99 @@ const Dashboard = () => {
 					variant="contained"
 					endIcon={<AddIcon />}
 					sx={{ ml: "1rem" }}
-					color="success">
+					color="success"
+					onClick={handleClick}>
 					Add New Project
 				</Button>
 			</Typography>
+			{open && <AddProject open={open} setOpen={setOpen} />}
 			<Grid container spacing={6} style={{ padding: "2rem 3rem" }}>
-				<Grid item xs={12} md={6}>
-					<ContentCard>
-						<Box
-							style={{
-								display: "flex",
-								alignItems: "baseline",
-								marginBottom: "0.3rem",
-							}}>
-							<Typography variant="subtitle1" component="span">
-								Project Name: Smart Docs
-							</Typography>
-						</Box>
-						<Box
-							style={{
-								display: "flex",
-								alignItems: "baseline",
-								marginBottom: "0.3rem",
-							}}>
-							<Typography variant="subtitle1" component="span">
-								Developer(s): Buddies Until SDE<sup>'</sup>s Group
-							</Typography>
-						</Box>
-						<Box
-							style={{
-								display: "flex",
-								alignItems: "baseline",
-								marginBottom: "3rem",
-							}}>
-							<Typography variant="subtitle1" component="span">
-								Project Description: This is a Document Management System made
-								for National Institute of Technology, Silchar.
-							</Typography>
-						</Box>
+				{state?.profile?.projects &&
+					state?.profile?.projects.length > 0 &&
+					state.profile?.projects.map((el, i) => (
+						<Grid item xs={12} md={6} key={i}>
+							<ContentCard>
+								<Box
+									style={{
+										display: "flex",
+										alignItems: "baseline",
+										marginBottom: "0.3rem",
+									}}>
+									<Typography variant="subtitle1" component="span">
+										Project Name: {el.name}
+									</Typography>
+								</Box>
+								<Box
+									style={{
+										display: "flex",
+										alignItems: "baseline",
+										marginBottom: "0.3rem",
+									}}>
+									<Typography variant="subtitle1" component="span">
+										Team: {el.team}
+									</Typography>
+								</Box>
+								<Box
+									style={{
+										display: "flex",
+										alignItems: "baseline",
+										marginBottom: "3rem",
+									}}>
+									<Typography variant="subtitle1" component="span">
+										{el.desc}
+									</Typography>
+								</Box>
 
-						<Grid container spacing={6}>
-							<Grid item xs={12} md={6}>
-								<Button
-									fullWidth
-									size="large"
-									variant="outlined"
-									startIcon={<GitHubIcon />}
-									color="success">
-									GitHub Repo
-								</Button>
-							</Grid>
-							<Grid item xs={12} md={6}>
-								<Button
-									fullWidth
-									size="large"
-									variant="contained"
-									endIcon={<ArrowForwardIosIcon />}
-									color="success">
-									View Project
-								</Button>
-							</Grid>
+								<Grid container spacing={6}>
+									<Grid item xs={12} md={6}>
+										<Button
+											fullWidth
+											size="large"
+											variant="outlined"
+											startIcon={<GitHubIcon />}
+											color="success"
+											href={el.github}>
+											GitHub Repo
+										</Button>
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<Button
+											fullWidth
+											size="large"
+											variant="contained"
+											endIcon={<ArrowForwardIosIcon />}
+											color="success"
+											herf={el.link}>
+											View Project
+										</Button>
+									</Grid>
+								</Grid>
+								<Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
+									<Grid item xs={12} md={6}>
+										<Button
+											fullWidth
+											size="large"
+											variant="outlined"
+											startIcon={<DriveFileRenameOutlineIcon />}
+											color="success">
+											Edit Details
+										</Button>
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<Button
+											fullWidth
+											size="large"
+											variant="contained"
+											endIcon={<DeleteIcon />}
+											color="error"
+											onClick={() => handleDelete(el._id)}>
+											Delete Project
+										</Button>
+									</Grid>
+								</Grid>
+							</ContentCard>
 						</Grid>
-						<Grid container spacing={6} style={{ marginTop: "-0.6rem" }}>
-							<Grid item xs={12} md={6}>
-								<Button
-									fullWidth
-									size="large"
-									variant="outlined"
-									startIcon={<DriveFileRenameOutlineIcon />}
-									color="success">
-									Edit Details
-								</Button>
-							</Grid>
-							<Grid item xs={12} md={6}>
-								<Button
-									fullWidth
-									size="large"
-									variant="contained"
-									endIcon={<DeleteIcon />}
-									color="error">
-									Delete Project
-								</Button>
-							</Grid>
-						</Grid>
-					</ContentCard>
-				</Grid>
+					))}
 			</Grid>
 		</Paper>
 	);

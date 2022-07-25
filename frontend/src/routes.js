@@ -12,6 +12,7 @@ const Payment = lazy(() => import("./pages/Payment"));
 const PaymentForm = lazy(() => import("./pages/PaymentForm"));
 const Registration = lazy(() => import("./pages/Registration"));
 const AdminPage = lazy(() => import("./pages/AdminPage"));
+const AddProject = lazy(() => import("./pages/AddProject"));
 
 export const dashboardRoutes = [
 	{
@@ -63,6 +64,7 @@ const Routes = () => {
 				{ path: "/login", element: <Auth /> },
 				{ path: "/registration", element: <Registration /> },
 				{ path: "/pay-now", element: <PaymentForm /> },
+				{ path: "/p", element: <AddProject /> },
 				{ path: "404", element: <NotFound /> },
 				{ path: "*", element: <Navigate to="/404" replace /> },
 			],

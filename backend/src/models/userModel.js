@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, v4 } from "uuid";
 import gravatar from "gravatar";
 
 const SALT_WORK_FACTOR = 12;
@@ -62,6 +62,15 @@ const userSchema = mongoose.Schema(
 				name: String,
 				value: String,
 				_id: false
+			}
+		],
+		projects: [
+			{
+				name: String,
+				team: String,
+				desc: String,
+				github: String,
+				link: String
 			}
 		]
 	},

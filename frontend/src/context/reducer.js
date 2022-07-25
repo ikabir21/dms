@@ -6,16 +6,14 @@ import {
 	LOGOUT,
 	SET_PROFILE,
 	SET_PAYMENTS,
-  UPLOAD_FILE
+	ADD_PROJECTS,
+	DELETE_PROJECTS,
 } from "./constants";
 
 export const initialState = {
 	loading: false,
 	isAuth: localStorage.getItem("isAuth")
 		? JSON.parse(localStorage.getItem("isAuth"))
-		: false,
-	isAdmin: localStorage.getItem("isAdmin")
-		? JSON.parse(localStorage.getItem("isAdmin"))
 		: false,
 	user: localStorage.getItem("user")
 		? JSON.parse(localStorage.getItem("user"))
@@ -31,9 +29,6 @@ export const initialState = {
 	payments: localStorage.getItem("payments")
 		? JSON.parse(localStorage.getItem("payments"))
 		: null,
-	// cgpa: localStorage.getItem("cgpa")
-	// 	? JSON.parse(localStorage.getItem("cgpa"))
-	// 	: {null},
 };
 
 const reducer = (state, action) => {
@@ -53,7 +48,6 @@ const reducer = (state, action) => {
 				profileUrl: action.payload.profileUrl,
 			};
 			localStorage.setItem("isAuth", JSON.stringify(true));
-			localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin));
 			localStorage.setItem("user", JSON.stringify(user));
 			localStorage.setItem("accessToken", JSON.stringify(user.accessToken));
 			return {
@@ -70,8 +64,13 @@ const reducer = (state, action) => {
 			localStorage.removeItem("payments");
 			localStorage.removeItem("profile");
 			localStorage.removeItem("isAdmin");
-			localStorage.removeItem("cgpa");
-			return { isAuth: false, user: {} };
+			return {
+				isAuth: false,
+				user: {},
+				profile: {},
+				isAdmin: false,
+				payments: {},
+			};
 
 		case SET_PROFILE:
 			const profile = {
@@ -81,12 +80,10 @@ const reducer = (state, action) => {
 				scholarId: action.payload.scholarId,
 				mobile: action.payload.mobile,
 				branch: action.payload.branch,
-				results: action.payload.results,
+				projects: action.payload.projects,
 				cgpa: action.payload.cgpa,
-				profileUrl: action.payload.profileUrl,
 			};
 			localStorage.setItem("profile", JSON.stringify(profile));
-			localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin));
 			return { ...state, profile };
 
 		case SET_PAYMENTS:
@@ -101,10 +98,25 @@ const reducer = (state, action) => {
 			console.log(action.payload, payments);
 			localStorage.setItem("payments", JSON.stringify(payments));
 			return { ...state, payments };
-
-		case UPLOAD_FILE:
-			localStorage.setItem("cgpa", JSON.stringify(action.payload.cgpa));
-			return { ...state, cgpa: action.payload.cgpa };
+		case ADD_PROJECTS:
+			return {
+				...state,
+				profile: {
+					...state.profile,
+					projects: [...state.profile.projects, action.payload],
+				},
+			};
+		case DELETE_PROJECTS:
+			const projects = state.profile?.projects?.filter(
+				(el) => el._id !== action.payload
+			);
+			return {
+				...state,
+				profile: {
+					...state.profile,
+					projects,
+				},
+			};
 		default:
 			return state;
 	}
