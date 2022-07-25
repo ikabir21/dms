@@ -11,6 +11,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Payment = lazy(() => import("./pages/Payment"));
 const PaymentForm = lazy(() => import("./pages/PaymentForm"));
 const Registration = lazy(() => import("./pages/Registration"));
+const AdminPage = lazy(() => import("./pages/AdminPage"));
 
 export const dashboardRoutes = [
 	{
@@ -37,13 +38,13 @@ export const dashboardRoutes = [
 	// { path: "/dashboard", name: "Dashboard", element: Dashboard, icon: DashboardIcon },
 ];
 
-const isAdmin = localStorage.getItem("isAdmin") ? JSON.parse(localStorage.getItem("isAdmin")) : false
+const isAdmin =  true
 if (isAdmin) {
   dashboardRoutes.push({
     path: "admin",
     pathname: "/admin",
     name: "Admin",
-    element: <Dashboard />,
+    element: <AdminPage />,
     icon: <AdminPanelSettingsIcon />,
   });
 }

@@ -24,12 +24,14 @@ export const profile = async (req, res, next) => {
 				return res.status(200).json({
 					success: true,
 					name: user.name,
+					profileUrl: user.profileUrl,
 					personalEmail: user.personalEmail,
 					instituteEmail: user.instituteEmail,
 					scholarId: user.scholarId,
 					mobile: user.mobile,
 					branch: user.branch,
 					results: resultarry,
+					cgpa: user.cgpa
 				});
 			}
 		})

@@ -133,9 +133,9 @@ const Dashboard = () => {
             CGPA VARIATIONS
           </Typography>
           <Typography variant="subtitle1" align="center">
-            (till 6<sup>th</sup> sem)
+            (till {state.profile.cgpa.length}<sup>th</sup> sem)
           </Typography>
-          <CBarChart />
+          <CBarChart data={state.profile.cgpa || []} />
         </ContentCard>
       </Box>
 

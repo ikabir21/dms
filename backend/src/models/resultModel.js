@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const resultSchema = mongoose.Schema(
   {
-    semName: String,
+    name: String,
     sgpa: String,
     cgpa: String,
     subjects: [{
