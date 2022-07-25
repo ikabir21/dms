@@ -38,7 +38,7 @@ const Sidebar = ({open}) => {
               <ListItem
                 sx={{
                   background:
-                    location.pathname === "/dashboard" + item.pathname ? "#F1F2F5" : "default",
+                    location.pathname === "/dashboard" + item.pathname ? "rgba(255, 255, 255, 0.08)" : "default",
                   my: 1
                 }}
                 key={key}

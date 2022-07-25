@@ -39,8 +39,8 @@ const Header = ({ toggleDrawer }) => {
 	};
 
 	React.useEffect(() => {
-		!state.isAuth && navigate("/login")
-	}, [state.isAuth, navigate])
+		// state.isAuth !== null && !state.isAuth && navigate("/login");
+	}, [state.isAuth, navigate]);
 
 	return (
 		<Box>

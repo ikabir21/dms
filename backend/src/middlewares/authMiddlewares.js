@@ -28,3 +28,12 @@ export const isAuth = async (req, res, next) => {
   }
   if (!token) return next(new ErrorMessage("Not authorized, no token", 401));
 };
+
+export const isAdmin = async (req, res, next) => {
+  if (req.user && req.user.role === 1) {
+    req.isAdmin = true;
+    next();
+  } else {
+    next(new ErrorMessage("Access Denied", 401));
+  }
+}

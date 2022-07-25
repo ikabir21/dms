@@ -13,7 +13,7 @@ function AccountCard({ detail }) {
 
 	const getPass = (pass) => {
 		let ans = "";
-		for (let i = 0; i < pass.length; ++i) {
+		for (let i = 0; i < pass?.length; ++i) {
 			ans += "*";
 		}
 		return ans;
@@ -59,7 +59,7 @@ function AccountCard({ detail }) {
 				</IconButton>
 				Tap to reveal
 			</Typography>
-			<Button variant="contained" href="/pay-now" sx={{my: 2}} fullWidth>
+			<Button variant="contained" href="/#/pay-now" sx={{my: 2}} fullWidth>
 				Pay Now
 			</Button>
 		</Box>
