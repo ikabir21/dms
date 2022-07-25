@@ -38,7 +38,7 @@ export const dashboardRoutes = [
 	// { path: "/dashboard", name: "Dashboard", element: Dashboard, icon: DashboardIcon },
 ];
 
-const isAdmin =  true
+const isAdmin =  localStorage.getItem("isAdmin") ? JSON.parse(localStorage.getItem("isAdmin")) : false
 if (isAdmin) {
   dashboardRoutes.push({
     path: "admin",

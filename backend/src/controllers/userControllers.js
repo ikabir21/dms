@@ -83,6 +83,7 @@ export const login = (req, res, next) => {
   User.findOne({ personalEmail })
     .then((user) => {
       console.log(user);
+      if (!user) return next(new ErrorMessage("Access Denied", 401))
       user.comparePassword(password, (err, isMatched) => {
         if (err) return next(err);
         if (!isMatched)

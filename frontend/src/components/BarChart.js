@@ -39,7 +39,7 @@ const CBarChart = ({ data }) => {
 	data.forEach((el) => {
 		cgpa.push({ name: el.name, cgpa: parseFloat(el.value) });
 	});
-	for (let i = cgpa.length+1; i <= 8; ++i) cgpa.push({ name: `sem${i}` });
+	for (let i = cgpa.length+1; i <= 8; ++i) cgpa.push({ name: `sem${i}`, cgpa: 0 });
 	console.log(cgpa);
 
 	return (

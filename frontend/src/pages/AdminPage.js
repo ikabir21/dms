@@ -21,7 +21,7 @@ const AdminPage = () => {
 		if (file) {
 			const formData = new FormData();
 			formData.append("file", file);
-			// actions.uploadResults(formData);
+			actions.uploadResults(formData);
 		}
 	};
 

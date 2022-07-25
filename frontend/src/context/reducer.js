@@ -31,9 +31,9 @@ export const initialState = {
 	payments: localStorage.getItem("payments")
 		? JSON.parse(localStorage.getItem("payments"))
 		: null,
-	cgpa: localStorage.getItem("cgpa")
-		? JSON.parse(localStorage.getItem("cgpa"))
-		: null,
+	// cgpa: localStorage.getItem("cgpa")
+	// 	? JSON.parse(localStorage.getItem("cgpa"))
+	// 	: {null},
 };
 
 const reducer = (state, action) => {
@@ -86,6 +86,7 @@ const reducer = (state, action) => {
 				profileUrl: action.payload.profileUrl,
 			};
 			localStorage.setItem("profile", JSON.stringify(profile));
+			localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin));
 			return { ...state, profile };
 
 		case SET_PAYMENTS:

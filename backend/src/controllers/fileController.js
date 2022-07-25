@@ -4,6 +4,7 @@ import xlsx from "xlsx";
 import ErrorMessage from "../utils/errorMessage.js";
 
 export const uploadFile = (req, res, next) => {
+	console.log("hello", req.file.filename);
 	const file = req.file.filename;
 	console.log("/uploads/" + file);
 	const wb = xlsx.readFile("./uploads/" + file, { dateNF: "mm/dd/yyy" });
@@ -35,7 +36,7 @@ export const uploadFile = (req, res, next) => {
 							.catch((err) => next(err));
 					}
 				})
-				.then((err) => next(err));
+				.catch((err) => next(err));
 				res.status(200).json({ success: true });
 		});
 	} catch (error) {

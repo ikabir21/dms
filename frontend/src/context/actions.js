@@ -129,10 +129,10 @@ const getActions = (dispatch) => {
 				alert(msg);
 			}
 		},
-		uploadResults: async () => {
+		uploadResults: async (formData) => {
 			dispatch({ type: LOADING });
 			try {
-				const { data } = await Axios.post("/upload");
+				const { data } = await Axios.post("/upload", formData);
 				dispatch({ type: UPLOAD_FILE, payload: data });
 				Swal.fire({
 					position: "top-end",

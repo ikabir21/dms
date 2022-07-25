@@ -31,7 +31,8 @@ export const profile = async (req, res, next) => {
 					mobile: user.mobile,
 					branch: user.branch,
 					results: resultarry,
-					cgpa: user.cgpa
+					cgpa: user.cgpa,
+					isAdmin: user.role == 1
 				});
 			}
 		})
